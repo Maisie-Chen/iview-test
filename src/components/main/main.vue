@@ -154,6 +154,48 @@ export default {
       return this.$store.state.user.unreadCount;
     },
   },
+    watch: {
+    $route(newRoute) {
+      const {
+        name, query, params, meta,
+      } = newRoute;
+      this.addTag({
+        route: {
+          name, query, params, meta,
+        },
+        type: 'push',
+      });
+      this.setBreadCrumb(newRoute);
+      this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
+      this.$refs.sideMenu.updateOpenName(newRoute.name);
+    },
+  },
+  mounted() {
+    /**
+     * @description 初始化设置面包屑导航和标签导航
+     */
+    this.setTagNavList();
+    this.setHomeRoute(routers);
+    const {
+      name, params, query, meta,
+    } = this.$route;
+    this.addTag({
+      route: {
+        name, params, query, meta,
+      },
+    });
+    this.setBreadCrumb(this.$route);
+    // 设置初始语言
+    this.setLocal(this.$i18n.locale);
+    // 如果当前打开页面不在标签栏中，跳到homeName页
+    if (!this.tagNavList.find(item => item.name === this.$route.name)) {
+      this.$router.push({
+        name: this.$config.homeName,
+      });
+    }
+    // 获取未读消息条数
+    this.getUnreadMessageCount();
+  },
   methods: {
     ...mapMutations([
       'setBreadCrumb',
@@ -201,48 +243,6 @@ export default {
     handleClick(item) {
       this.turnToPage(item);
     },
-  },
-  watch: {
-    $route(newRoute) {
-      const {
-        name, query, params, meta,
-      } = newRoute;
-      this.addTag({
-        route: {
-          name, query, params, meta,
-        },
-        type: 'push',
-      });
-      this.setBreadCrumb(newRoute);
-      this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
-      this.$refs.sideMenu.updateOpenName(newRoute.name);
-    },
-  },
-  mounted() {
-    /**
-     * @description 初始化设置面包屑导航和标签导航
-     */
-    this.setTagNavList();
-    this.setHomeRoute(routers);
-    const {
-      name, params, query, meta,
-    } = this.$route;
-    this.addTag({
-      route: {
-        name, params, query, meta,
-      },
-    });
-    this.setBreadCrumb(this.$route);
-    // 设置初始语言
-    this.setLocal(this.$i18n.locale);
-    // 如果当前打开页面不在标签栏中，跳到homeName页
-    if (!this.tagNavList.find(item => item.name === this.$route.name)) {
-      this.$router.push({
-        name: this.$config.homeName,
-      });
-    }
-    // 获取未读消息条数
-    this.getUnreadMessageCount();
   },
 };
 </script>

@@ -160,9 +160,7 @@ export default {
       if (offset > 0) {
         this.tagBodyLeft = Math.min(0, this.tagBodyLeft + offset);
       } else if (outerWidth < bodyWidth) {
-        if (this.tagBodyLeft < -(bodyWidth - outerWidth)) {
-          this.tagBodyLeft = this.tagBodyLeft;
-        } else {
+        if (this.tagBodyLeft >= -(bodyWidth - outerWidth)) {
           this.tagBodyLeft = Math.max(this.tagBodyLeft + offset, outerWidth - bodyWidth);
         }
       } else {
