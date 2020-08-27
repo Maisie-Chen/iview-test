@@ -2,31 +2,60 @@
   <Card shadow>
     <div>
       <div class="message-page-con message-category-con">
-        <Menu width="auto" active-name="unread" @on-select="handleSelect">
+        <Menu
+          width="auto"
+          active-name="unread"
+          @on-select="handleSelect"
+        >
           <MenuItem name="unread">
-            <span class="category-title">未读消息</span><Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
+            <span class="category-title">未读消息</span><Badge
+              style="margin-left: 10px"
+              :count="messageUnreadCount"
+            ></Badge>
           </MenuItem>
           <MenuItem name="readed">
-            <span class="category-title">已读消息</span><Badge style="margin-left: 10px" class-name="gray-dadge" :count="messageReadedCount"></Badge>
+            <span class="category-title">已读消息</span><Badge
+              style="margin-left: 10px"
+              class-name="gray-dadge"
+              :count="messageReadedCount"
+            ></Badge>
           </MenuItem>
           <MenuItem name="trash">
-            <span class="category-title">回收站</span><Badge style="margin-left: 10px" class-name="gray-dadge" :count="messageTrashCount"></Badge>
+            <span class="category-title">回收站</span><Badge
+              style="margin-left: 10px"
+              class-name="gray-dadge"
+              :count="messageTrashCount"
+            ></Badge>
           </MenuItem>
         </Menu>
       </div>
       <div class="message-page-con message-list-con">
-        <Spin fix v-if="listLoading" size="large"></Spin>
+        <Spin
+          v-if="listLoading"
+          fix
+          size="large"
+        ></Spin>
         <Menu
           width="auto"
           active-name=""
           :class="titleClass"
           @on-select="handleView"
         >
-          <MenuItem v-for="item in messageList" :name="item.msg_id" :key="`msg_${item.msg_id}`">
+          <MenuItem
+            v-for="item in messageList"
+            :key="`msg_${item.msg_id}`"
+            :name="item.msg_id"
+          >
             <div>
-              <p class="msg-title">{{ item.title }}</p>
-              <Badge status="default" :text="item.create_time" />
+              <p class="msg-title">
+                {{ item.title }}
+              </p>
+              <Badge
+                status="default"
+                :text="item.create_time"
+              />
               <Button
+                v-show="currentMessageType !== 'unread'"
                 style="float: right;margin-right: 20px;"
                 :style="{ display: item.loading ? 'inline-block !important' : '' }"
                 :loading="item.loading"
@@ -34,16 +63,22 @@
                 :icon="currentMessageType === 'readed' ? 'md-trash' : 'md-redo'"
                 :title="currentMessageType === 'readed' ? '删除' : '还原'"
                 type="text"
-                v-show="currentMessageType !== 'unread'"
-                @click.native.stop="removeMsg(item)"></Button>
+                @click.native.stop="removeMsg(item)"
+              ></Button>
             </div>
           </MenuItem>
         </Menu>
       </div>
       <div class="message-page-con message-view-con">
-        <Spin fix v-if="contentLoading" size="large"></Spin>
+        <Spin
+          v-if="contentLoading"
+          fix
+          size="large"
+        ></Spin>
         <div class="message-view-header">
-          <h2 class="message-view-title">{{ showingMsgItem.title }}</h2>
+          <h2 class="message-view-title">
+            {{ showingMsgItem.title }}
+          </h2>
           <time class="message-view-time">{{ showingMsgItem.create_time }}</time>
         </div>
         <div v-html="messageContent"></div>
@@ -53,42 +88,45 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import {
+  mapState, mapGetters, mapMutations, mapActions,
+} from 'vuex';
+
 const listDic = {
   unread: 'messageUnreadList',
   readed: 'messageReadedList',
-  trash: 'messageTrashList'
-}
+  trash: 'messageTrashList',
+};
 export default {
-  name: 'message_page',
-  data () {
+  name: 'MessagePage',
+  data() {
     return {
       listLoading: true,
       contentLoading: false,
       currentMessageType: 'unread',
       messageContent: '',
-      showingMsgItem: {}
-    }
+      showingMsgItem: {},
+    };
   },
   computed: {
     ...mapState({
       messageUnreadList: state => state.user.messageUnreadList,
       messageReadedList: state => state.user.messageReadedList,
       messageTrashList: state => state.user.messageTrashList,
-      messageList () {
-        return this[listDic[this.currentMessageType]]
+      messageList() {
+        return this[listDic[this.currentMessageType]];
       },
-      titleClass () {
+      titleClass() {
         return {
-          'not-unread-list': this.currentMessageType !== 'unread'
-        }
-      }
+          'not-unread-list': this.currentMessageType !== 'unread',
+        };
+      },
     }),
     ...mapGetters([
       'messageUnreadCount',
       'messageReadedCount',
-      'messageTrashCount'
-    ])
+      'messageTrashCount',
+    ]),
   },
   methods: {
     ...mapMutations([
@@ -99,39 +137,39 @@ export default {
       'getMessageList',
       'hasRead',
       'removeReaded',
-      'restoreTrash'
+      'restoreTrash',
     ]),
-    stopLoading (name) {
-      this[name] = false
+    stopLoading(name) {
+      this[name] = false;
     },
-    handleSelect (name) {
-      this.currentMessageType = name
+    handleSelect(name) {
+      this.currentMessageType = name;
     },
-    handleView (msg_id) {
-      this.contentLoading = true
-      this.getContentByMsgId({ msg_id }).then(content => {
-        this.messageContent = content
-        const item = this.messageList.find(item => item.msg_id === msg_id)
-        if (item) this.showingMsgItem = item
-        if (this.currentMessageType === 'unread') this.hasRead({ msg_id })
-        this.stopLoading('contentLoading')
+    handleView(msg_id) {
+      this.contentLoading = true;
+      this.getContentByMsgId({ msg_id }).then((content) => {
+        this.messageContent = content;
+        const item = this.messageList.find(item => item.msg_id === msg_id);
+        if (item) this.showingMsgItem = item;
+        if (this.currentMessageType === 'unread') this.hasRead({ msg_id });
+        this.stopLoading('contentLoading');
       }).catch(() => {
-        this.stopLoading('contentLoading')
-      })
+        this.stopLoading('contentLoading');
+      });
     },
-    removeMsg (item) {
-      item.loading = true
-      const msg_id = item.msg_id
-      if (this.currentMessageType === 'readed') this.removeReaded({ msg_id })
-      else this.restoreTrash({ msg_id })
-    }
+    removeMsg(item) {
+      item.loading = true;
+      const { msg_id } = item;
+      if (this.currentMessageType === 'readed') this.removeReaded({ msg_id });
+      else this.restoreTrash({ msg_id });
+    },
   },
-  mounted () {
-    this.listLoading = true
+  mounted() {
+    this.listLoading = true;
     // 请求获取消息列表
-    this.getMessageList().then(() => this.stopLoading('listLoading')).catch(() => this.stopLoading('listLoading'))
-  }
-}
+    this.getMessageList().then(() => this.stopLoading('listLoading')).catch(() => this.stopLoading('listLoading'));
+  },
+};
 </script>
 
 <style lang="less">

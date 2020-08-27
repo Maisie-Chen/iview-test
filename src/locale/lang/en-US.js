@@ -43,5 +43,5 @@ export default {
   org_tree_page: 'Org Tree',
   drag_drawer_page: 'Draggable Drawer',
   tree_select_page: 'Tree Selector',
-  maisie_page: 'Maisie Card'
-}
+  maisie_page: 'Maisie Card',
+};

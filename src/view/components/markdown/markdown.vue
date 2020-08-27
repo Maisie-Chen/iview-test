@@ -1,22 +1,23 @@
 <template>
   <div>
-    <markdown-editor v-model="content"/>
+    <MarkdownEditor v-model="content" />
   </div>
 </template>
 
 <script>
-import MarkdownEditor from '_c/markdown'
+import MarkdownEditor from '_c/markdown';
+
 export default {
-  name: 'markdown_page',
+  name: 'MarkdownPage',
   components: {
-    MarkdownEditor
+    MarkdownEditor,
   },
-  data () {
+  data() {
     return {
-      content: ''
-    }
-  }
-}
+      content: '',
+    };
+  },
+};
 </script>
 
 <style>

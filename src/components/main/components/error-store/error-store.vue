@@ -1,8 +1,17 @@
 <template>
   <div class="error-store">
-    <Badge dot :count="countComputed">
-      <Button type="text" @click="openErrorLoggerPage">
-        <Icon :size="20" type="ios-bug"/>
+    <Badge
+      dot
+      :count="countComputed"
+    >
+      <Button
+        type="text"
+        @click="openErrorLoggerPage"
+      >
+        <Icon
+          :size="20"
+          type="ios-bug"
+        />
       </Button>
     </Badge>
   </div>
@@ -14,26 +23,26 @@ export default {
   props: {
     count: {
       type: Number,
-      default: 0
+      default: 0,
     },
     hasRead: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
-    countComputed () {
-      return this.hasRead ? 0 : this.count
-    }
+    countComputed() {
+      return this.hasRead ? 0 : this.count;
+    },
   },
   methods: {
-    openErrorLoggerPage () {
+    openErrorLoggerPage() {
       this.$router.push({
-        name: 'error_logger_page'
-      })
-    }
-  }
-}
+        name: 'error_logger_page',
+      });
+    },
+  },
+};
 </script>
 
 <style lang="less">

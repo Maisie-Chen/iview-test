@@ -1,40 +1,35 @@
-import Mock from 'mockjs'
-import { doCustomTimes } from '@/libs/util'
-import orgData from './data/org-data'
-import { treeData } from './data/tree-select'
-const Random = Mock.Random
+import Mock from 'mockjs';
+import { doCustomTimes } from '@/libs/util';
+import orgData from './data/org-data';
+import { treeData } from './data/tree-select';
 
-export const getTableData = req => {
-  let tableData = []
+const { Random } = Mock;
+
+export const getTableData = (req) => {
+  const tableData = [];
   doCustomTimes(5, () => {
     tableData.push(Mock.mock({
       name: '@name',
       email: '@email',
-      createTime: '@date'
-    }))
-  })
-  return tableData
-}
+      createTime: '@date',
+    }));
+  });
+  return tableData;
+};
 
-export const getDragList = req => {
-  let dragList = []
+export const getDragList = (req) => {
+  const dragList = [];
   doCustomTimes(5, () => {
     dragList.push(Mock.mock({
       name: Random.csentence(10, 13),
-      id: Random.increment(10)
-    }))
-  })
-  return dragList
-}
+      id: Random.increment(10),
+    }));
+  });
+  return dragList;
+};
 
-export const uploadImage = req => {
-  return Promise.resolve()
-}
+export const uploadImage = req => Promise.resolve();
 
-export const getOrgData = req => {
-  return orgData
-}
+export const getOrgData = req => orgData;
 
-export const getTreeSelectData = req => {
-  return treeData
-}
+export const getTreeSelectData = req => treeData;

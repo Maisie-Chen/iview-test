@@ -45,5 +45,5 @@ export default {
   tree_select_page: '树状下拉选择器',
   maisie_page: 'Maisie卡片管理',
   page_one: '分页一',
-  page_two: '分页二'
-}
+  page_two: '分页二',
+};

@@ -1,13 +1,43 @@
 <template>
   <div class="tables-edit-outer">
-    <div v-if="!isEditting" class="tables-edit-con">
+    <div
+      v-if="!isEditting"
+      class="tables-edit-con"
+    >
       <span class="value-con">{{ value }}</span>
-      <Button v-if="editable" @click="startEdit" class="tables-edit-btn" style="padding: 2px 4px;" type="text"><Icon type="md-create"></Icon></Button>
+      <Button
+        v-if="editable"
+        class="tables-edit-btn"
+        style="padding: 2px 4px;"
+        type="text"
+        @click="startEdit"
+      >
+        <Icon type="md-create"></Icon>
+      </Button>
     </div>
-    <div v-else class="tables-editting-con">
-      <Input :value="value" @input="handleInput" class="tables-edit-input"/>
-      <Button @click="saveEdit" style="padding: 6px 4px;" type="text"><Icon type="md-checkmark"></Icon></Button>
-      <Button @click="canceltEdit" style="padding: 6px 4px;" type="text"><Icon type="md-close"></Icon></Button>
+    <div
+      v-else
+      class="tables-editting-con"
+    >
+      <Input
+        :value="value"
+        class="tables-edit-input"
+        @input="handleInput"
+      />
+      <Button
+        style="padding: 6px 4px;"
+        type="text"
+        @click="saveEdit"
+      >
+        <Icon type="md-checkmark"></Icon>
+      </Button>
+      <Button
+        style="padding: 6px 4px;"
+        type="text"
+        @click="canceltEdit"
+      >
+        <Icon type="md-close"></Icon>
+      </Button>
     </div>
   </div>
 </template>
@@ -19,28 +49,28 @@ export default {
     value: [String, Number],
     edittingCellId: String,
     params: Object,
-    editable: Boolean
+    editable: Boolean,
   },
   computed: {
-    isEditting () {
-      return this.edittingCellId === `editting-${this.params.index}-${this.params.column.key}`
-    }
+    isEditting() {
+      return this.edittingCellId === `editting-${this.params.index}-${this.params.column.key}`;
+    },
   },
   methods: {
-    handleInput (val) {
-      this.$emit('input', val)
+    handleInput(val) {
+      this.$emit('input', val);
     },
-    startEdit () {
-      this.$emit('on-start-edit', this.params)
+    startEdit() {
+      this.$emit('on-start-edit', this.params);
     },
-    saveEdit () {
-      this.$emit('on-save-edit', this.params)
+    saveEdit() {
+      this.$emit('on-save-edit', this.params);
     },
-    canceltEdit () {
-      this.$emit('on-cancel-edit', this.params)
-    }
-  }
-}
+    canceltEdit() {
+      this.$emit('on-cancel-edit', this.params);
+    },
+  },
+};
 </script>
 
 <style lang="less">

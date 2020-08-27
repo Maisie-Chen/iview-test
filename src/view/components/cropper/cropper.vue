@@ -4,11 +4,11 @@
       <i-col span="12">
         <Card>
           <div class="cropper-example cropper-first">
-            <cropper
+            <Cropper
               :src="exampleImageSrc"
               crop-button-text="确认提交"
               @on-crop="handleCroped"
-            ></cropper>
+            ></Cropper>
           </div>
         </Card>
       </i-col>
@@ -17,28 +17,29 @@
 </template>
 
 <script>
-import Cropper from '@/components/cropper'
-import { uploadImg } from '@/api/data'
+import Cropper from '@/components/cropper';
+import { uploadImg } from '@/api/data';
+
 export default {
-  name: 'cropper_page',
+  name: 'CropperPage',
   components: {
-    Cropper
+    Cropper,
   },
-  data () {
+  data() {
     return {
-      exampleImageSrc: ''
-    }
+      exampleImageSrc: '',
+    };
   },
   methods: {
-    handleCroped (blob) {
-      const formData = new FormData()
-      formData.append('croppedImg', blob)
+    handleCroped(blob) {
+      const formData = new FormData();
+      formData.append('croppedImg', blob);
       uploadImg(formData).then(() => {
-        this.$Message.success('Upload success~')
-      })
-    }
-  }
-}
+        this.$Message.success('Upload success~');
+      });
+    },
+  },
+};
 </script>
 
 <style lang="less">

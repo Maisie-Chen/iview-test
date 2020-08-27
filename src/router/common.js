@@ -1,4 +1,4 @@
-import Main from '@/components/main'
+import Main from '@/components/main';
 
 export default [
   {
@@ -6,29 +6,29 @@ export default [
     name: 'maisie_page',
     meta: {
       icon: 'md-image',
-      title: 'maisie'
+      title: 'maisie',
     },
     component: Main,
-    // component: () => import('@/view/maisiePage/maisiePage.vue'),
+    // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
     children: [
       {
         path: 'page_one',
         name: 'page_one',
         meta: {
           icon: 'md-grid',
-          title: 'pageOne'
+          title: 'pageOne',
         },
-        component: () => import('@/view/maisiePage/maisiePage1.vue')
+        component: resolve => require(['@/view/maisiePage/maisiePage1.vue'], resolve),
       },
       {
         path: 'page_two',
         name: 'page_two',
         meta: {
           icon: 'md-grid',
-          title: 'pageTwo'
+          title: 'pageTwo',
         },
-        component: () => import('@/view/maisiePage/maisiePage2.vue')
-      }
-    ]
-  }
-]
+        component: resolve => require(['@/view/maisiePage/maisiePage2.vue'], resolve),
+      },
+    ],
+  },
+];
