@@ -2,32 +2,32 @@ import Main from '@/components/main';
 
 export default [
   {
-    path: '/maisie',
-    name: 'maisie_page',
+    path: '/service_management',
+    name: 'service_management',
     meta: {
       icon: 'md-image',
-      title: 'maisie',
+      title: 'serviceManege',
     },
     component: Main,
     // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
     children: [
       {
-        path: 'page_one',
-        name: 'page_one',
+        path: 'user_manage',
+        name: 'user_manage',
         meta: {
           icon: 'md-grid',
-          title: 'pageOne',
+          title: 'userManage',
         },
-        component: resolve => require(['@/view/maisiePage/maisiePage1.vue'], resolve),
+        component: resolve => require(['@/view/serv-page/user-manage.vue'], resolve),
       },
       {
-        path: 'page_two',
-        name: 'page_two',
+        path: 'house_manage',
+        name: 'house_manage',
         meta: {
           icon: 'md-grid',
-          title: 'pageTwo',
+          title: 'houseManage',
         },
-        component: resolve => require(['@/view/maisiePage/maisiePage2.vue'], resolve),
+        component: resolve => require(['@/view/serv-page/house-manage.vue'], resolve),
       },
     ],
   },

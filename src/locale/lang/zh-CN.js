@@ -43,7 +43,7 @@ export default {
   org_tree_page: '组织结构树',
   drag_drawer_page: '可拖动抽屉',
   tree_select_page: '树状下拉选择器',
-  maisie_page: 'Maisie卡片管理',
-  page_one: '分页一',
-  page_two: '分页二',
+  service_management: '业务管理',
+  user_manage: '用户管理',
+  house_manage: '房屋管理',
 };

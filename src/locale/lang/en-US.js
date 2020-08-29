@@ -43,5 +43,7 @@ export default {
   org_tree_page: 'Org Tree',
   drag_drawer_page: 'Draggable Drawer',
   tree_select_page: 'Tree Selector',
-  maisie_page: 'Maisie Card',
+  service_management: 'Service Management',
+  user_manage: 'User Management',
+  house_manage: 'House Management',
 };
