@@ -6,14 +6,14 @@ export const login = ({ userName, password }) => {
     password,
   };
   return axios.request({
-    url: 'login',
-    data,
+    url: '/auth/account/login',
     method: 'post',
+    data,
   });
 };
 
 export const getUserInfo = token => axios.request({
-  url: 'get_info',
+  url: '/user/me',
   params: {
     token,
   },

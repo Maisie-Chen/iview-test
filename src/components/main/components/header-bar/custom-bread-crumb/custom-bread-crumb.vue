@@ -6,10 +6,6 @@
         :key="`bread-crumb-${item.name}`"
         :to="item.to"
       >
-        <CommonIcon
-          style="margin-right: 4px;"
-          :type="item.icon || ''"
-        />
         {{ showTitle(item) }}
       </BreadcrumbItem>
     </Breadcrumb>
@@ -23,7 +19,7 @@ import './custom-bread-crumb.less';
 export default {
   name: 'CustomBreadCrumb',
   components: {
-    CommonIcon,
+    // CommonIcon,
   },
   props: {
     list: {

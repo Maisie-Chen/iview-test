@@ -5,7 +5,7 @@ import { forEach, hasOneOf, objEqual } from '@/libs/tools';
 
 const { title, cookieExpires, useI18n } = config;
 
-export const TOKEN_KEY = 'token';
+export const TOKEN_KEY = 'admin_token';
 
 export const setToken = (token) => {
   Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 });
@@ -70,7 +70,8 @@ export const getBreadCrumbList = (route, homeRoute) => {
     return obj;
   });
   res = res.filter(item => !item.meta.hideInMenu);
-  return [{ ...homeItem, to: homeRoute.path }, ...res];
+  let [last] = [...res].reverse()
+  return [last];
 };
 
 export const getRouteTitleHandled = (route) => {

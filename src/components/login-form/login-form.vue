@@ -43,6 +43,7 @@
   </Form>
 </template>
 <script>
+import axios from '@/libs/api.request'
 export default {
   name: 'LoginForm',
   props: {
@@ -86,7 +87,7 @@ export default {
         }
       });
     },
-  },
+  }
 };
 </script>
 <style>

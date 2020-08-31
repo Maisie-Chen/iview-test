@@ -1,5 +1,8 @@
 <template>
   <Card>
+    <Button @click="customerList">
+      请求数据TEST
+    </Button>
     <Table 
       size="small"
       stripe
@@ -23,7 +26,7 @@
           v-model="data0[index].modalShow" 
         >
           <p slot="header">
-            <Icn type="ios-information-circle"></Icn>
+            <Icon type="ios-information-circle"></Icon>
             <span>审核/查看详情</span>
           </p>
           <div class="modal-content">
@@ -66,9 +69,15 @@
   </Card>
 </template>
 <script>
+  import axios from 'axios'
+  import { getCustomerList } from '@/api/customer'
   export default {
     data () {
       return {
+        listQuery: {
+          pageSize: 10,
+          pageNum: 1
+        },
         columns: [
           {
             type: 'selection',
@@ -160,6 +169,13 @@
       }
     },
     methods: {
+      customerList(){
+        // getCustomerList(this.listQuery).then(res => {
+          // console.log(res)
+        // })
+
+      }
+
     }
   }
 </script>
