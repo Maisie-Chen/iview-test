@@ -7,13 +7,13 @@
       <Icon
         :size="18"
         type="md-arrow-dropdown"
-      ></Icon>
+      />
       <DropdownMenu slot="list">
         <DropdownItem name="message">
           消息中心<Badge
             style="margin-left: 10px"
             :count="messageUnreadCount"
-          ></Badge>
+          />
         </DropdownItem>
         <DropdownItem name="logout">
           退出登录
@@ -24,45 +24,45 @@
 </template>
 
 <script>
-import './user.less';
-import { mapActions } from 'vuex';
+import './user.less'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'User',
   props: {
     userAvatar: {
       type: String,
-      default: '',
+      default: ''
     },
     messageUnreadCount: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   methods: {
     ...mapActions([
-      'handleLogOut',
+      'handleLogOut'
     ]),
     logout() {
       this.handleLogOut().then(() => {
         this.$router.push({
-          name: 'login',
-        });
-      });
+          name: 'login'
+        })
+      })
     },
     message() {
       this.$router.push({
-        name: 'message_page',
-      });
+        name: 'message_page'
+      })
     },
     handleClick(name) {
       switch (name) {
-        case 'logout': this.logout();
-          break;
-        case 'message': this.message();
-          break;
+        case 'logout': this.logout()
+          break
+        case 'message': this.message()
+          break
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>

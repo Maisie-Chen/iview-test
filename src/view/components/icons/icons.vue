@@ -59,14 +59,14 @@
 </template>
 
 <script>
-import Icons from '_c/icons';
-import CommonIcon from '_c/common-icon';
+import Icons from '_c/icons'
+import CommonIcon from '_c/common-icon'
 
 export default {
   name: 'IconsPages',
   components: {
     Icons,
-    CommonIcon,
+    CommonIcon
   },
   data() {
     return {
@@ -76,11 +76,11 @@ export default {
         'smile',
         'meh',
         'frown',
-        'bear',
-      ],
-    };
-  },
-};
+        'bear'
+      ]
+    }
+  }
+}
 </script>
 
 <style lang="less">

@@ -1,3 +1,3 @@
-import Language from './language.vue';
+import Language from './language.vue'
 
-export default Language;
+export default Language

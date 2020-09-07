@@ -2,20 +2,20 @@ export default {
   props: {
     parentItem: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     theme: String,
-    iconSize: Number,
+    iconSize: Number
   },
   computed: {
     parentName() {
-      return this.parentItem.name;
+      return this.parentItem.name
     },
     children() {
-      return this.parentItem.children;
+      return this.parentItem.children
     },
     textColor() {
-      return this.theme === 'dark' ? '#fff' : '#495060';
-    },
-  },
-};
+      return this.theme === 'dark' ? '#fff' : '#495060'
+    }
+  }
+}

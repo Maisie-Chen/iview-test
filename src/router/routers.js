@@ -1,5 +1,5 @@
-import Main from '@/components/main';
-import MaisiePage from './common';
+import Main from '@/components/main'
+import MaisiePage from './common'
 
 /**
  * iview-admin中meta除了原生参数外可配置的参数:
@@ -23,9 +23,9 @@ export default [
     name: 'login',
     meta: {
       title: 'Login - 登录',
-      hideInMenu: true,
+      hideInMenu: true
     },
-    component: resolve => require(['@/view/login/login.vue'], resolve),
+    component: resolve => require(['@/view/login/login.vue'], resolve)
   },
   {
     path: '/',
@@ -34,7 +34,7 @@ export default [
     component: Main,
     meta: {
       hideInMenu: true,
-      notCache: true,
+      notCache: true
     },
     children: [
       {
@@ -44,11 +44,11 @@ export default [
           hideInMenu: true,
           title: '首页',
           notCache: true,
-          icon: 'md-home',
+          icon: 'md-home'
         },
-        component: resolve => require(['@/view/single-page/home'], resolve),
-      },
-    ],
+        component: resolve => require(['@/view/single-page/home'], resolve)
+      }
+    ]
   },
   ...MaisiePage,
   {
@@ -57,14 +57,14 @@ export default [
     meta: {
       title: '文档',
       href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book',
-    },
+      icon: 'ios-book'
+    }
   },
   {
     path: '/argu',
     name: 'argu',
     meta: {
-      hideInMenu: true,
+      hideInMenu: true
     },
     component: Main,
     children: [
@@ -75,9 +75,9 @@ export default [
           icon: 'md-flower',
           title: route => `{{ params }}-${route.params.id}`,
           notCache: true,
-          beforeCloseName: 'before_close_normal',
+          beforeCloseName: 'before_close_normal'
         },
-        component: resolve => require(['@/view/argu-page/params.vue'], resolve),
+        component: resolve => require(['@/view/argu-page/params.vue'], resolve)
       },
       {
         path: 'query',
@@ -85,34 +85,34 @@ export default [
         meta: {
           icon: 'md-flower',
           title: route => `{{ query }}-${route.query.id}`,
-          notCache: true,
+          notCache: true
         },
-        component: resolve => require(['@/view/argu-page/query.vue'], resolve),
-      },
-    ],
+        component: resolve => require(['@/view/argu-page/query.vue'], resolve)
+      }
+    ]
   },
   {
     path: '/401',
     name: 'error_401',
     meta: {
-      hideInMenu: true,
+      hideInMenu: true
     },
-    component: resolve => require(['@/view/error-page/401.vue'], resolve),
+    component: resolve => require(['@/view/error-page/401.vue'], resolve)
   },
   {
     path: '/500',
     name: 'error_500',
     meta: {
-      hideInMenu: true,
+      hideInMenu: true
     },
-    component: resolve => require(['@/view/error-page/500.vue'], resolve),
+    component: resolve => require(['@/view/error-page/500.vue'], resolve)
   },
   {
     path: '*',
     name: 'error_404',
     meta: {
-      hideInMenu: true,
+      hideInMenu: true
     },
-    component: resolve => require(['@/view/error-page/404.vue'], resolve),
-  },
-];
+    component: resolve => require(['@/view/error-page/404.vue'], resolve)
+  }
+]

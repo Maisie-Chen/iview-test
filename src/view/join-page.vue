@@ -20,7 +20,7 @@
             <i-col span="12">
               <p>QQ 群号：621780943</p>
             </i-col>
-            <i-col span="12"></i-col>
+            <i-col span="12" />
           </row>
         </i-col>
         <i-col span="14">
@@ -81,9 +81,9 @@ export default {
   name: 'JoinPage',
   data() {
     return {
-    };
-  },
-};
+    }
+  }
+}
 </script>
 <style>
   .join-page{

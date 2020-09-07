@@ -1,4 +1,4 @@
-import Main from '@/components/main';
+import Main from '@/components/main'
 
 export default [
   {
@@ -6,7 +6,7 @@ export default [
     name: 'service_management',
     meta: {
       icon: 'md-image',
-      title: 'serviceManege',
+      title: 'serviceManege'
     },
     component: Main,
     // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
@@ -16,19 +16,19 @@ export default [
         name: 'user_manage',
         meta: {
           icon: 'md-grid',
-          title: 'userManage',
+          title: 'userManage'
         },
-        component: resolve => require(['@/view/serv-page/user-manage.vue'], resolve),
+        component: resolve => require(['@/view/serv-page/customer-manage.vue'], resolve)
       },
       {
         path: 'house_manage',
         name: 'house_manage',
         meta: {
           icon: 'md-grid',
-          title: 'houseManage',
+          title: 'houseManage'
         },
-        component: resolve => require(['@/view/serv-page/house-manage.vue'], resolve),
-      },
-    ],
-  },
-];
+        component: resolve => require(['@/view/serv-page/house-manage.vue'], resolve)
+      }
+    ]
+  }
+]

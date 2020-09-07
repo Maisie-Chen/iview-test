@@ -7,13 +7,13 @@
             <DatePicker
               type="date"
               placeholder="Select date"
-            ></DatePicker>
+            />
             <TimePicker
               type="timerange"
               placement="bottom-end"
               placeholder="Select time"
               style="display: block;margin-top: 10px;"
-            ></TimePicker>
+            />
             <Button
               type="primary"
               style="margin-top: 10px;"
@@ -42,15 +42,15 @@ export default {
   name: 'I18nPage',
   data() {
     return {
-      modalVisible: false,
-    };
+      modalVisible: false
+    }
   },
   computed: {
     content() {
-      return this.$t('content');
-    },
-  },
-};
+      return this.$t('content')
+    }
+  }
+}
 </script>
 
 <style lang="less">

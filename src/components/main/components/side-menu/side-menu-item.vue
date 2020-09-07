@@ -10,7 +10,7 @@
           v-if="showChildren(item)"
           :key="`menu-${item.name}`"
           :parent-item="item"
-        ></side-menu-item>
+        />
         <menu-item
           v-else
           :key="`menu-${item.children[0].name}`"
@@ -24,7 +24,7 @@
           v-if="showChildren(item)"
           :key="`menu-${item.name}`"
           :parent-item="item"
-        ></side-menu-item>
+        />
         <menu-item
           v-else
           :key="`menu-${item.name}`"
@@ -37,11 +37,11 @@
   </Submenu>
 </template>
 <script>
-import mixin from './mixin';
-import itemMixin from './item-mixin';
+import mixin from './mixin'
+import itemMixin from './item-mixin'
 
 export default {
   name: 'SideMenuItem',
-  mixins: [mixin, itemMixin],
-};
+  mixins: [mixin, itemMixin]
+}
 </script>

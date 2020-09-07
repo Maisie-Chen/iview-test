@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Params',
   methods: {
     ...mapMutations([
-      'closeTag',
+      'closeTag'
     ]),
     close() {
       /**
@@ -26,12 +26,12 @@ export default {
       this.closeTag({
         name: 'params',
         params: {
-          id: this.$route.params.id,
-        },
-      });
-    },
-  },
-};
+          id: this.$route.params.id
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style>

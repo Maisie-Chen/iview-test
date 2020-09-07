@@ -1,11 +1,17 @@
 import axios from '@/libs/api.request.js'
 
 export const getCustomerList = (params) => {
-    console.log(params)
-    console.log('向api发出请求')
-    return axios.request({
-      url: '/user/page',
-      method: 'get',
-      params: params
-    })
-  }
+  return axios.request({
+    url: '/user/page',
+    method: 'get',
+    params: params
+  })
+}
+
+// 获取详情
+export function getCustomerDetail(id) {
+  return axios.request({
+    url: `/user/${id}/auditDetails`,
+    method: 'get'
+  })
+}

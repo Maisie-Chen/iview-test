@@ -7,7 +7,7 @@
         :bordered="false"
       >
         <div class="form-con">
-          <LoginForm @on-success-valid="handleSubmit"></LoginForm>
+          <LoginForm @on-success-valid="handleSubmit" />
           <p class="login-tip">
             输入任意用户名和密码即可
           </p>
@@ -18,29 +18,29 @@
 </template>
 
 <script>
-import LoginForm from '_c/login-form';
-import { mapActions } from 'vuex';
+import LoginForm from '_c/login-form'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
-    LoginForm,
+    LoginForm
   },
   methods: {
     ...mapActions([
       'handleLogin',
-      'getUserInfo',
+      'getUserInfo'
     ]),
     handleSubmit({ userName, password }) {
       this.handleLogin({ userName, password }).then(() => {
         this.getUserInfo().then(() => {
           this.$router.push({
-            name: this.$config.screenPage,
-          });
-        });
-      });
-    },
-  },
-};
+            name: this.$config.screenPage
+          })
+        })
+      })
+    }
+  }
+}
 </script>
 <style lang="less">
   @import './login.less';

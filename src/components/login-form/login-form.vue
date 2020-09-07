@@ -14,7 +14,7 @@
         <Icon
           :size="16"
           type="ios-person"
-        ></Icon>
+        />
       </span>
     </FormItem>
     <FormItem prop="password">
@@ -28,7 +28,7 @@
         <Icon
           :size="16"
           type="ios-person"
-        ></Icon>
+        />
       </span>
     </FormItem>
     <FormItem>
@@ -43,38 +43,37 @@
   </Form>
 </template>
 <script>
-import axios from '@/libs/api.request'
 export default {
   name: 'LoginForm',
   props: {
     userNameRules: {
       type: Array,
       default: () => [
-        { required: true, message: '账号不能为空', trigger: 'blur' },
-      ],
+        { required: true, message: '账号不能为空', trigger: 'blur' }
+      ]
     },
     passwordRules: {
       type: Array,
       default: () => [
-        { required: true, message: '密码不能为空', trigger: 'blur' },
-      ],
-    },
+        { required: true, message: '密码不能为空', trigger: 'blur' }
+      ]
+    }
   },
   data() {
     return {
       form: {
         userName: 'super_admin',
-        password: '',
-      },
-    };
+        password: ''
+      }
+    }
   },
   computed: {
     rules() {
       return {
         userName: this.userNameRules,
-        password: this.passwordRules,
-      };
-    },
+        password: this.passwordRules
+      }
+    }
   },
   methods: {
     handleSubmit() {
@@ -82,13 +81,13 @@ export default {
         if (valid) {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
-            password: this.form.password,
-          });
+            password: this.form.password
+          })
         }
-      });
-    },
+      })
+    }
   }
-};
+}
 </script>
 <style>
 </style>

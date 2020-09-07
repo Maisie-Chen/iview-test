@@ -1,68 +1,68 @@
-import axios from '@/libs/api.request';
+import axios from '@/libs/api.request'
 
 export const login = ({ userName, password }) => {
   const data = {
-    userName,
-    password,
-  };
+    username: userName,
+    password
+  }
   return axios.request({
     url: '/auth/account/login',
     method: 'post',
-    data,
-  });
-};
+    data
+  })
+}
 
 export const getUserInfo = token => axios.request({
   url: '/user/me',
   params: {
-    token,
+    token
   },
-  method: 'get',
-});
+  method: 'get'
+})
 
 export const logout = token => axios.request({
-  url: 'logout',
-  method: 'post',
-});
+  url: '/auth/logout',
+  method: 'post'
+})
 
 export const getUnreadCount = () => axios.request({
   url: 'message/count',
-  method: 'get',
-});
+  method: 'get'
+})
 
 export const getMessage = () => axios.request({
   url: 'message/init',
-  method: 'get',
-});
+  method: 'get'
+})
 
 export const getContentByMsgId = msg_id => axios.request({
   url: 'message/content',
   method: 'get',
   params: {
-    msg_id,
-  },
-});
+    msg_id
+  }
+})
 
 export const hasRead = msg_id => axios.request({
   url: 'message/has_read',
   method: 'post',
   data: {
-    msg_id,
-  },
-});
+    msg_id
+  }
+})
 
 export const removeReaded = msg_id => axios.request({
   url: 'message/remove_readed',
   method: 'post',
   data: {
-    msg_id,
-  },
-});
+    msg_id
+  }
+})
 
 export const restoreTrash = msg_id => axios.request({
   url: 'message/restore',
   method: 'post',
   data: {
-    msg_id,
-  },
-});
+    msg_id
+  }
+})

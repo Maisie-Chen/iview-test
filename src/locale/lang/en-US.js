@@ -45,5 +45,5 @@ export default {
   tree_select_page: 'Tree Selector',
   service_management: 'Service Management',
   user_manage: 'User Management',
-  house_manage: 'House Management',
-};
+  house_manage: 'House Management'
+}

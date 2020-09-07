@@ -1,3 +1,3 @@
-import countTo from './count-to.vue';
+import countTo from './count-to.vue'
 
-export default countTo;
+export default countTo

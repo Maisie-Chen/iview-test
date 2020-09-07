@@ -2,44 +2,44 @@
   <div
     ref="dom"
     class="charts chart-pie"
-  ></div>
+  />
 </template>
 
 <script>
-import echarts from 'echarts';
-import { on, off } from '@/libs/tools';
-import tdTheme from './theme.json';
+import echarts from 'echarts'
+import { on, off } from '@/libs/tools'
+import tdTheme from './theme.json'
 
-echarts.registerTheme('tdTheme', tdTheme);
+echarts.registerTheme('tdTheme', tdTheme)
 export default {
   name: 'ChartPie',
   props: {
     value: Array,
     text: String,
-    subtext: String,
+    subtext: String
   },
   data() {
     return {
-      dom: null,
-    };
+      dom: null
+    }
   },
   mounted() {
     this.$nextTick(() => {
-      const legend = this.value.map(_ => _.name);
+      const legend = this.value.map(_ => _.name)
       const option = {
         title: {
           text: this.text,
           subtext: this.subtext,
-          x: 'center',
+          x: 'center'
         },
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: legend,
+          data: legend
         },
         series: [
           {
@@ -51,24 +51,24 @@ export default {
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)',
-              },
-            },
-          },
-        ],
-      };
-      this.dom = echarts.init(this.$refs.dom, 'tdTheme');
-      this.dom.setOption(option);
-      on(window, 'resize', this.resize);
-    });
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      }
+      this.dom = echarts.init(this.$refs.dom, 'tdTheme')
+      this.dom.setOption(option)
+      on(window, 'resize', this.resize)
+    })
   },
   beforeDestroy() {
-    off(window, 'resize', this.resize);
+    off(window, 'resize', this.resize)
   },
   methods: {
     resize() {
-      this.dom.resize();
-    },
-  },
-};
+      this.dom.resize()
+    }
+  }
+}
 </script>

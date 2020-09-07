@@ -1,6 +1,6 @@
 <template>
   <div class="side-menu-wrapper">
-    <slot></slot>
+    <slot />
     <Menu
       v-show="!collapsed"
       ref="menu"
@@ -17,7 +17,7 @@
             v-if="showChildren(item)"
             :key="`menu-${item.name}`"
             :parent-item="item"
-          ></SideMenuItem>
+          />
           <menu-item
             v-else
             :key="`menu-${item.children[0].name}`"
@@ -31,7 +31,7 @@
             v-if="showChildren(item)"
             :key="`menu-${item.name}`"
             :parent-item="item"
-          ></SideMenuItem>
+          />
           <menu-item
             v-else
             :key="`menu-${item.name}`"
@@ -57,7 +57,7 @@
           :theme="theme"
           :parent-item="item"
           @on-click="handleSelect"
-        ></CollapsedMenu>
+        />
         <Tooltip
           v-else
           :key="`drop-menu-${item.name}`"
@@ -80,90 +80,90 @@
   </div>
 </template>
 <script>
-import { getUnion } from '@/libs/tools';
-import SideMenuItem from './side-menu-item.vue';
-import CollapsedMenu from './collapsed-menu.vue';
-import mixin from './mixin';
+import { getUnion } from '@/libs/tools'
+import SideMenuItem from './side-menu-item.vue'
+import CollapsedMenu from './collapsed-menu.vue'
+import mixin from './mixin'
 
 export default {
   name: 'SideMenu',
   components: {
     SideMenuItem,
-    CollapsedMenu,
+    CollapsedMenu
   },
   mixins: [mixin],
   props: {
     menuList: {
       type: Array,
       default() {
-        return [];
-      },
+        return []
+      }
     },
     collapsed: {
-      type: Boolean,
+      type: Boolean
     },
     theme: {
       type: String,
-      default: 'dark',
+      default: 'dark'
     },
     rootIconSize: {
       type: Number,
-      default: 20,
+      default: 20
     },
     iconSize: {
       type: Number,
-      default: 16,
+      default: 16
     },
     accordion: Boolean,
     activeName: {
       type: String,
-      default: '',
+      default: ''
     },
     openNames: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {
-      openedNames: [],
-    };
+      openedNames: []
+    }
   },
   computed: {
     textColor() {
-      return this.theme === 'dark' ? '#fff' : '#495060';
-    },
+      return this.theme === 'dark' ? '#fff' : '#495060'
+    }
   },
   watch: {
     activeName(name) {
-      if (this.accordion) this.openedNames = this.getOpenedNamesByActiveName(name);
-      else this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name));
+      if (this.accordion) this.openedNames = this.getOpenedNamesByActiveName(name)
+      else this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name))
     },
     openNames(newNames) {
-      this.openedNames = newNames;
+      this.openedNames = newNames
     },
     openedNames() {
       this.$nextTick(() => {
-        this.$refs.menu.updateOpened();
-      });
-    },
+        this.$refs.menu.updateOpened()
+      })
+    }
   },
   mounted() {
-    this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name));
+    this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name))
   },
   methods: {
     handleSelect(name) {
-      this.$emit('on-select', name);
+      this.$emit('on-select', name)
     },
     getOpenedNamesByActiveName(name) {
-      return this.$route.matched.map(item => item.name).filter(item => item !== name);
+      return this.$route.matched.map(item => item.name).filter(item => item !== name)
     },
     updateOpenName(name) {
-      if (name === this.$config.homeName) this.openedNames = [];
-      else this.openedNames = this.getOpenedNamesByActiveName(name);
-    },
-  },
-};
+      if (name === this.$config.homeName) this.openedNames = []
+      else this.openedNames = this.getOpenedNamesByActiveName(name)
+    }
+  }
+}
 </script>
 <style lang="less">
 @import './side-menu.less';

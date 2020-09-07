@@ -12,9 +12,8 @@
   </div>
 </template>
 <script>
-import { showTitle } from '@/libs/util';
-import CommonIcon from '_c/common-icon';
-import './custom-bread-crumb.less';
+import { showTitle } from '@/libs/util'
+import './custom-bread-crumb.less'
 
 export default {
   name: 'CustomBreadCrumb',
@@ -24,27 +23,27 @@ export default {
   props: {
     list: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     fontSize: {
       type: Number,
-      default: 14,
+      default: 14
     },
     showIcon: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   methods: {
     showTitle(item) {
-      return showTitle(item, this);
+      return showTitle(item, this)
     },
     isCustomIcon(iconName) {
-      return iconName.indexOf('_') === 0;
+      return iconName.indexOf('_') === 0
     },
     getCustomIconName(iconName) {
-      return iconName.slice(1);
-    },
-  },
-};
+      return iconName.slice(1)
+    }
+  }
+}
 </script>

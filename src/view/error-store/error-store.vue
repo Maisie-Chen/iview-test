@@ -30,19 +30,19 @@
 </template>
 
 <script>
-import { errorReq } from '@/api/data';
+import { errorReq } from '@/api/data'
 
 export default {
   name: 'ErrorStorePage',
   methods: {
     click() {
-      console.log(admin);
+      console.log('admin')
     },
     ajaxClick() {
-      errorReq();
-    },
-  },
-};
+      errorReq()
+    }
+  }
+}
 </script>
 
 <style>

@@ -45,5 +45,5 @@ export default {
   tree_select_page: '树状下拉选择器',
   service_management: '业务管理',
   user_manage: '用户管理',
-  house_manage: '房屋管理',
-};
+  house_manage: '房屋管理'
+}

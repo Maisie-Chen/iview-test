@@ -26,12 +26,12 @@
             v-show="!collapsed"
             key="max-logo"
             :src="maxLogo"
-          />
+          >
           <img
             v-show="collapsed"
             key="min-logo"
             :src="minLogo"
-          />
+          >
         </div>
       </SideMenu>
     </Sider>
@@ -51,27 +51,10 @@
             :lang="local"
             @on-lang-change="setLocal"
           />
-          <ErrorStore
-            v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader"
-            :has-read="hasReadErrorPage"
-            :count="errorCount"
-          ></ErrorStore>
-          <Fullscreen
-            v-model="isFullscreen"
-            style="margin-right: 10px;"
-          />
         </HeaderBar>
       </Header>
       <Content class="main-content-con">
         <Layout class="main-layout-con">
-          <div class="tag-nav-wrapper">
-            <TagsNav
-              :value="$route"
-              :list="tagNavList"
-              @input="handleClick"
-              @on-close="handleCloseTag"
-            />
-          </div>
           <Content class="content-wrapper">
             <keep-alive :include="cacheList">
               <router-view />
@@ -81,7 +64,7 @@
               :bottom="80"
               :right="50"
               container=".content-wrapper"
-            ></ABackTop>
+            />
           </Content>
         </Layout>
       </Content>
@@ -89,20 +72,17 @@
   </Layout>
 </template>
 <script>
-import { mapMutations, mapActions, mapGetters } from 'vuex';
-import { getNewTagList, routeEqual } from '@/libs/util';
-import routers from '@/router/routers';
-import minLogo from '@/assets/images/logo-min.jpg';
-import maxLogo from '@/assets/images/logo.jpg';
-import SideMenu from './components/side-menu';
-import HeaderBar from './components/header-bar';
-import TagsNav from './components/tags-nav';
-import User from './components/user';
-import ABackTop from './components/a-back-top';
-import Fullscreen from './components/fullscreen';
-import Language from './components/language';
-import ErrorStore from './components/error-store';
-import './main.less';
+import { mapMutations, mapActions } from 'vuex'
+import { getNewTagList } from '@/libs/util'
+import routers from '@/router/routers'
+import minLogo from '@/assets/images/logo-min.jpg'
+import maxLogo from '@/assets/images/logo.jpg'
+import SideMenu from './components/side-menu'
+import HeaderBar from './components/header-bar'
+import User from './components/user'
+import ABackTop from './components/a-back-top'
+import Language from './components/language'
+import './main.less'
 
 export default {
   name: 'Main',
@@ -110,91 +90,81 @@ export default {
     SideMenu,
     HeaderBar,
     Language,
-    TagsNav,
-    Fullscreen,
-    ErrorStore,
     User,
-    ABackTop,
+    ABackTop
   },
   data() {
     return {
       collapsed: false,
       minLogo,
-      maxLogo,
-      isFullscreen: false,
-    };
+      maxLogo
+    }
   },
   computed: {
-    ...mapGetters([
-      'errorCount',
-    ]),
     tagNavList() {
-      return this.$store.state.app.tagNavList;
+      return this.$store.state.app.tagNavList
     },
     tagRouter() {
-      return this.$store.state.app.tagRouter;
+      return this.$store.state.app.tagRouter
     },
     userAvatar() {
-      return this.$store.state.user.avatarImgPath;
+      return this.$store.state.user.avatarImgPath
     },
     cacheList() {
-      const list = ['ParentView', ...this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []];
-      return list;
+      const list = ['ParentView', ...this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []]
+      return list
     },
     menuList() {
-      return this.$store.getters.menuList;
+      return this.$store.getters.menuList
     },
     local() {
-      return this.$store.state.app.local;
-    },
-    hasReadErrorPage() {
-      return this.$store.state.app.hasReadErrorPage;
+      return this.$store.state.app.local
     },
     unreadCount() {
-      return this.$store.state.user.unreadCount;
-    },
+      return this.$store.state.user.unreadCount
+    }
   },
-    watch: {
+  watch: {
     $route(newRoute) {
       const {
-        name, query, params, meta,
-      } = newRoute;
+        name, query, params, meta
+      } = newRoute
       this.addTag({
         route: {
-          name, query, params, meta,
+          name, query, params, meta
         },
-        type: 'push',
-      });
-      this.setBreadCrumb(newRoute);
-      this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
-      this.$refs.sideMenu.updateOpenName(newRoute.name);
-    },
+        type: 'push'
+      })
+      this.setBreadCrumb(newRoute)
+      this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
+      this.$refs.sideMenu.updateOpenName(newRoute.name)
+    }
   },
   mounted() {
     /**
      * @description 初始化设置面包屑导航和标签导航
      */
-    this.setTagNavList();
-    this.setHomeRoute(routers);
+    this.setTagNavList()
+    this.setHomeRoute(routers)
     const {
-      name, params, query, meta,
-    } = this.$route;
+      name, params, query, meta
+    } = this.$route
     this.addTag({
       route: {
-        name, params, query, meta,
-      },
-    });
-    this.setBreadCrumb(this.$route);
+        name, params, query, meta
+      }
+    })
+    this.setBreadCrumb(this.$route)
     // 设置初始语言
-    this.setLocal(this.$i18n.locale);
+    this.setLocal(this.$i18n.locale)
     // 如果当前打开页面不在标签栏中，跳到homeName页
     if (!this.tagNavList.find(item => item.name === this.$route.name)) {
       this.$router.push({
-        name: this.$config.homeName,
-      });
+        name: this.$config.homeName
+      })
     }
     // 获取未读消息条数
-    this.getUnreadMessageCount();
+    // this.getUnreadMessageCount();
   },
   methods: {
     ...mapMutations([
@@ -203,46 +173,33 @@ export default {
       'addTag',
       'setLocal',
       'setHomeRoute',
-      'closeTag',
+      'closeTag'
     ]),
     ...mapActions([
       'handleLogin',
-      'getUnreadMessageCount',
+      'getUnreadMessageCount'
     ]),
     turnToPage(route) {
-      let { name, params, query } = {};
-      if (typeof route === 'string') name = route;
+      let { name, params, query } = {}
+      if (typeof route === 'string') name = route
       else {
-        name = route.name;
-        params = route.params;
-        query = route.query;
+        name = route.name
+        params = route.params
+        query = route.query
       }
       if (name.indexOf('isTurnByHref_') > -1) {
-        window.open(name.split('_')[1]);
-        return;
+        window.open(name.split('_')[1])
+        return
       }
       this.$router.push({
         name,
         params,
-        query,
-      });
+        query
+      })
     },
     handleCollapsedChange(state) {
-      this.collapsed = state;
-    },
-    handleCloseTag(res, type, route) {
-      if (type !== 'others') {
-        if (type === 'all') {
-          this.turnToPage(this.$config.homeName);
-        } else if (routeEqual(this.$route, route)) {
-          this.closeTag(route);
-        }
-      }
-      this.setTagNavList(res);
-    },
-    handleClick(item) {
-      this.turnToPage(item);
-    },
-  },
-};
+      this.collapsed = state
+    }
+  }
+}
 </script>
