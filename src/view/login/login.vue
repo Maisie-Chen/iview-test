@@ -1,18 +1,13 @@
 <template>
   <div class="login">
     <div class="login-con">
-      <Card
-        icon="log-in"
-        title="欢迎登录"
-        :bordered="false"
-      >
-        <div class="form-con">
-          <LoginForm @on-success-valid="handleSubmit" />
-          <p class="login-tip">
-            输入任意用户名和密码即可
-          </p>
+      <div class="form-con">
+        <div class="form-title">
+          Login Form
         </div>
-      </Card>
+        <LoginForm @on-success-valid="handleSubmit" />
+        <p class="login-tip" />
+      </div>
     </div>
   </div>
 </template>

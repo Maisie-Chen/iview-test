@@ -15,8 +15,7 @@ import VOrgTree from 'v-org-tree'
 import store from './store'
 import router from './router'
 import 'v-org-tree/dist/v-org-tree.css'
-import { Plugin } from 'vue-fragment'
-
+import filters from '@/filters'
 // 实际打包时应该不引入mock
 /* eslint-disable */
 // if (process.env.NODE_ENV !== 'production') require('@/mock')
@@ -26,7 +25,8 @@ Vue.use(ViewUI, {
 })
 Vue.use(TreeTable)
 Vue.use(VOrgTree)
-Vue.use(Plugin)
+// register global utility filters
+filters(Vue);
 /**
  * @description 注册admin内置插件
  */

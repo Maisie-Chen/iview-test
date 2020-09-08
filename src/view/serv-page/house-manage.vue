@@ -7,15 +7,16 @@
       :data="rowData"
     >
       <template slot="status" slot-scope="{ row }">
-        <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status }}</Tag>
-        <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status }}</Tag>
+        <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status | h_status }}</Tag>
+        <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status | h_status }}</Tag>
+        <Tag v-if="row.status=='audit_reject'" color="red">{{ row.status | h_status }}</Tag>
       </template>
       <template slot="rentStatus" slot-scope="{ row }">
-        <Tag v-if="row.rentStatus=='rented'" color="green">{{ row.rentStatus }}</Tag>
-        <Tag v-if="row.rentStatus=='rent_pending'" color="red">{{ row.rentStatus }}</Tag>
+        <Tag v-if="row.rentStatus=='rented'" color="green">{{ row.rentStatus | h_rentStatus }}</Tag>
+        <Tag v-if="row.rentStatus=='rent_pending'" color="red">{{ row.rentStatus | h_rentStatus }}</Tag>
       </template>rentStatus
       <template slot="operation" slot-scope="{ row }">
-        <span v-if="row.status=='audit_pass'" @click="modalShow(row)">详情</span>
+        <span v-if="row.status=='audit_pass' || row.status=='audit_reject'" @click="modalShow(row)">详情</span>
         <span v-if="row.status=='audit_pending'" @click="modalShow(row)">审核</span>
       </template>
     </Table>

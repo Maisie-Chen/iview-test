@@ -1,15 +1,8 @@
+
 <template>
   <div class="header-bar">
-    <sider-trigger
-      :collapsed="collapsed"
-      icon="md-menu"
-      @on-change="handleCollpasedChange"
-    />
-    <custom-bread-crumb
-      show-icon
-      style="margin-left: 30px;"
-      :list="breadCrumbList"
-    />
+    <sider-trigger :collapsed="collapsed" icon="md-menu" @on-change="handleCollpasedChange" />
+    <custom-bread-crumb show-icon style="margin-left: 30px;" :list="breadCrumbList" />
     <div class="custom-content-con">
       <slot />
     </div>
@@ -19,7 +12,6 @@
 import siderTrigger from './sider-trigger'
 import customBreadCrumb from './custom-bread-crumb'
 import './header-bar.less'
-
 export default {
   name: 'HeaderBar',
   components: {
@@ -31,7 +23,9 @@ export default {
   },
   computed: {
     breadCrumbList() {
-      return this.$store.state.app.breadCrumbList
+      const res = this.$store.state.app.breadCrumbList
+      res.shift() // breadCrumb上不显示'首页'
+      return res
     }
   },
   methods: {
@@ -41,3 +35,4 @@ export default {
   }
 }
 </script>
+

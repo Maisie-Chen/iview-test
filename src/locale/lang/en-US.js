@@ -44,6 +44,6 @@ export default {
   drag_drawer_page: 'Draggable Drawer',
   tree_select_page: 'Tree Selector',
   service_management: 'Service Management',
-  user_manage: 'User Management',
+  customer_manage: 'Customer Management',
   house_manage: 'House Management'
 }

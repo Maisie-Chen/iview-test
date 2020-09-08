@@ -7,12 +7,13 @@
       :data="rowData"
     >
       <template slot="status" slot-scope="{ row }">
-        <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status }}</Tag>
-        <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status }}</Tag>
-        <Tag v-if="row.status=='not_audit'" color="default">{{ row.status }}</Tag>
+        <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status | c_status }}</Tag>
+        <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status | c_status }}</Tag>
+        <Tag v-if="row.status=='not_audit'" color="default">{{ row.status | c_status }}</Tag>
+        <Tag v-if="row.status=='audit_reject'" color="red">{{ row.status | c_status }}</Tag>
       </template>
       <template slot="operation" slot-scope="{ row }">
-        <span v-if="row.status=='audit_pass'" @click="modalShow(row)">详情</span>
+        <span v-if="row.status=='audit_pass' || row.status=='audit_reject'" @click="modalShow(row)">详情</span>
         <span v-if="row.status=='audit_pending'" @click="modalShow(row)">审核</span>
       </template>
     </Table>
@@ -28,7 +29,6 @@
 <script>
 import modalDialog from './components/modals_for_customer/modalDialog.vue'
 import { getCustomerList } from '@/api/customer'
-import { statusObj } from '@/config/user_config'
 export default {
   components: {
     modalDialog
@@ -58,7 +58,6 @@ export default {
           title: '当前状态',
           key: 'status',
           slot: 'status'
-          // render: (h, params) => h('span', this.changeStatus(params.row, params.row.status))
         },
         {
           title: '角色',
@@ -92,11 +91,6 @@ export default {
         this.listQuery.total = data.total
         this.rowData = data.list
       })
-    },
-    changeStatus(row, key) {
-      // row.cellClassName = { ...statusObj[key].cellClassName }
-      row.operation = statusObj[key].operation
-      return statusObj[key].status
     },
     modalShow(row) {
       this.isOperationShow = true

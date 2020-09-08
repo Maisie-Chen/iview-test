@@ -14,9 +14,20 @@ echarts.registerTheme('tdTheme', tdTheme)
 export default {
   name: 'ChartPie',
   props: {
-    value: Array,
-    text: String,
-    subtext: String
+    value: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    text: {
+      type: String,
+      default: ''
+    },
+    subtext: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {

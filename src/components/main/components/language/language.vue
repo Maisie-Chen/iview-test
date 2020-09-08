@@ -28,7 +28,10 @@
 export default {
   name: 'Language',
   props: {
-    lang: String
+    lang: {
+      type: String,
+      default: 'zh-CN'
+    }
   },
   data() {
     return {

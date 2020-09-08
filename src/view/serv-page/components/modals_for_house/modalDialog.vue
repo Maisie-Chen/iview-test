@@ -25,13 +25,13 @@
         房屋面积: {{ formData.houseLayout.area }}
       </div>
       <div class="modal-c-item">
-        房屋朝向: {{ formData.houseLayout.direction }}
+        房屋朝向: {{ formData.houseLayout.direction | h_direction }}
       </div>
       <div class="modal-c-item">
         楼层: {{ formData.houseLayout.floor }}
       </div>
       <div class="modal-c-item">
-        电梯: {{ formData.houseLayout.hasElevator }}
+        电梯: {{ formData.houseLayout.hasElevator | h_hasElevator }}
       </div>
       <div class="modal-c-item">
         房间: {{ formData.houseLayout.roomCount }}

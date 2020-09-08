@@ -100,7 +100,12 @@ import beforeClose from '@/router/before-close'
 export default {
   name: 'TagsNav',
   props: {
-    value: Object,
+    value: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     list: {
       type: Array,
       default() {

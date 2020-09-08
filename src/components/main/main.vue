@@ -21,17 +21,18 @@
         @on-select="turnToPage"
       >
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
-        <div class="logo-con">
+        <div
+          class="logo-con"
+          @click="logOut"
+        >
           <img
             v-show="!collapsed"
             key="max-logo"
+            class="maxLogo"
             :src="maxLogo"
           >
-          <img
-            v-show="collapsed"
-            key="min-logo"
-            :src="minLogo"
-          >
+
+          <Button size="small">Admin</Button>
         </div>
       </SideMenu>
     </Sider>
@@ -75,8 +76,8 @@
 import { mapMutations, mapActions } from 'vuex'
 import { getNewTagList } from '@/libs/util'
 import routers from '@/router/routers'
-import minLogo from '@/assets/images/logo-min.jpg'
-import maxLogo from '@/assets/images/logo.jpg'
+import minLogo from '@/assets/images/small.png'
+import maxLogo from '@/assets/images/logo.png'
 import SideMenu from './components/side-menu'
 import HeaderBar from './components/header-bar'
 import User from './components/user'
@@ -177,6 +178,7 @@ export default {
     ]),
     ...mapActions([
       'handleLogin',
+      'handleLogOut',
       'getUnreadMessageCount'
     ]),
     turnToPage(route) {
@@ -199,6 +201,13 @@ export default {
     },
     handleCollapsedChange(state) {
       this.collapsed = state
+    },
+    logOut() {
+      this.handleLogOut().then(() => {
+        this.$router.push({
+          name: 'login'
+        })
+      })
     }
   }
 }

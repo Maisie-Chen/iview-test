@@ -1,11 +1,7 @@
 <template>
   <div class="custom-bread-crumb">
     <Breadcrumb :style="{fontSize: `${fontSize}px`}">
-      <BreadcrumbItem
-        v-for="item in list"
-        :key="`bread-crumb-${item.name}`"
-        :to="item.to"
-      >
+      <BreadcrumbItem v-for="item in list" :key="`bread-crumb-${item.name}`" :to="item.to">
         {{ showTitle(item) }}
       </BreadcrumbItem>
     </Breadcrumb>
@@ -14,11 +10,9 @@
 <script>
 import { showTitle } from '@/libs/util'
 import './custom-bread-crumb.less'
-
 export default {
   name: 'CustomBreadCrumb',
   components: {
-    // CommonIcon,
   },
   props: {
     list: {
@@ -47,3 +41,9 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+/deep/.demo-breadcrumb-separator{
+      display: none
+}
+</style>>

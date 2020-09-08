@@ -18,8 +18,14 @@ export default {
       type: String,
       required: true
     },
-    color: String,
-    size: Number
+    color: {
+      type: String,
+      default: ''
+    },
+    size: {
+      type: Number,
+      default: undefined
+    }
   },
   computed: {
     iconType() {

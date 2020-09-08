@@ -14,9 +14,20 @@ echarts.registerTheme('tdTheme', tdTheme)
 export default {
   name: 'ChartBar',
   props: {
-    value: Object,
-    text: String,
-    subtext: String
+    value: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    text: {
+      type: String,
+      default: ''
+    },
+    subtext: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {

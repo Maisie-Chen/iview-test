@@ -56,7 +56,9 @@ export const getBreadCrumbList = (route, homeRoute) => {
   const homeItem = { ...homeRoute, icon: homeRoute.meta.icon }
   const routeMetched = route.matched
   if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
-  let res = routeMetched.filter(item => item.meta === undefined || !item.meta.hideInBread).map((item) => {
+  let res = routeMetched.filter(item => {
+    return item.meta === undefined || !item.meta.hideInBread
+  }).map(item => {
     const meta = { ...item.meta }
     if (meta.title && typeof meta.title === 'function') {
       meta.__titleIsFunction__ = true
@@ -65,13 +67,14 @@ export const getBreadCrumbList = (route, homeRoute) => {
     const obj = {
       icon: (item.meta && item.meta.icon) || '',
       name: item.name,
-      meta
+      meta: meta
     }
     return obj
   })
-  res = res.filter(item => !item.meta.hideInMenu)
-  const [last] = [...res].reverse()
-  return [last]
+  res = res.filter(item => {
+    return !item.meta.hideInMenu
+  })
+  return [{ ...homeItem, to: homeRoute.path }, ...res]
 }
 
 export const getRouteTitleHandled = (route) => {

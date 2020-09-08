@@ -1,5 +1,4 @@
 import Main from '@/components/main'
-import MaisiePage from './common'
 
 /**
  * iview-admin中meta除了原生参数外可配置的参数:
@@ -50,15 +49,47 @@ export default [
       }
     ]
   },
-  ...MaisiePage,
   {
-    path: '',
-    name: 'doc',
+    path: '/',
+    name: '_customer',
     meta: {
-      title: '文档',
-      href: 'https://lison16.github.io/iview-admin-doc/#/',
-      icon: 'ios-book'
-    }
+      title: 'customer',
+      hideInBread: true
+    },
+    component: Main,
+    // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
+    children: [
+      {
+        path: 'customer_manage',
+        name: 'customer_manage',
+        meta: {
+          icon: 'ios-contact-outline',
+          title: 'customer_manage'
+        },
+        component: resolve => require(['@/view/serv-page/customer-manage.vue'], resolve)
+      }
+    ]
+  },
+  {
+    path: '/',
+    name: '_house',
+    meta: {
+      title: 'house',
+      hideInBread: true
+    },
+    component: Main,
+    // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
+    children: [
+      {
+        path: 'house_manage',
+        name: 'house_manage',
+        meta: {
+          icon: 'ios-home-outline',
+          title: 'house_manage'
+        },
+        component: resolve => require(['@/view/serv-page/house-manage.vue'], resolve)
+      }
+    ]
   },
   {
     path: '/argu',
@@ -116,3 +147,4 @@ export default [
     component: resolve => require(['@/view/error-page/404.vue'], resolve)
   }
 ]
+

@@ -5,41 +5,34 @@
     :rules="rules"
     @keydown.enter.native="handleSubmit"
   >
-    <FormItem prop="userName">
-      <Input
-        v-model="form.userName"
-        placeholder="请输入用户名"
-      />
-      <span slot="prefix">
-        <Icon
-          :size="16"
-          type="ios-person"
+    <div class="form-item-content">
+      <FormItem prop="userName">
+        <Input
+          v-model="form.userName"
+          placeholder="Username"
+          prefix="ios-contact"
         />
-      </span>
-    </FormItem>
-    <FormItem prop="password">
-      <Input
-        v-model="form.password"
-        type="password"
-        password
-        placeholder="请输入密码"
-      />
-      <span slot="prefix">
-        <Icon
-          :size="16"
-          type="ios-person"
+      </FormItem>
+      <FormItem prop="password">
+        <Input
+          v-model="form.password"
+          type="password"
+          password
+          placeholder="Password"
+          prefix="ios-lock"
         />
-      </span>
-    </FormItem>
-    <FormItem>
-      <Button
-        type="primary"
-        long
-        @click="handleSubmit"
-      >
-        登录
-      </Button>
-    </FormItem>
+      </FormItem>
+      <FormItem>
+        <Button
+          type="primary"
+          long
+          size="large"
+          @click="handleSubmit"
+        >
+          Login
+        </Button>
+      </FormItem>
+    </div>
   </Form>
 </template>
 <script>
@@ -49,20 +42,20 @@ export default {
     userNameRules: {
       type: Array,
       default: () => [
-        { required: true, message: '账号不能为空', trigger: 'blur' }
+        { required: true, message: 'Username is required', trigger: 'blur' }
       ]
     },
     passwordRules: {
       type: Array,
       default: () => [
-        { required: true, message: '密码不能为空', trigger: 'blur' }
+        { required: true, message: 'Password is required', trigger: 'blur' }
       ]
     }
   },
   data() {
     return {
       form: {
-        userName: 'super_admin',
+        userName: '',
         password: ''
       }
     }
@@ -89,5 +82,6 @@ export default {
   }
 }
 </script>
-<style>
+<style lang='less' scoped>
+@import './login-form.less';
 </style>

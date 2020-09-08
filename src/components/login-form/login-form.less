@@ -1,0 +1,30 @@
+
+.form-item-content{
+    width: 100%;
+    /deep/.ivu-input{
+        background: transparent;
+        padding: 12px 5px 12px 45px;
+        color: #eee;
+        height: 3.5rem;
+        line-height: 3.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+    /deep/.ivu-input-prefix {
+        left: 6px;
+        .ivu-icon::before{
+            display: block;
+            line-height: 3.5rem;
+            font-size: 18px;
+        }
+    }
+    /deep/.ivu-input-suffix{
+        right: 6px;
+        .ivu-icon::before{
+            display: block;
+            line-height: 3.5rem;
+            font-size: 18px;
+        }
+    }
+}

@@ -73,7 +73,8 @@
             :size="rootIconSize"
             :color="textColor"
             :type="item.icon || (item.children && item.children[0].icon)"
-          /></a>
+          />
+          </a>
         </Tooltip>
       </template>
     </div>

@@ -128,6 +128,11 @@ export default {
       'messageTrashCount'
     ])
   },
+  mounted() {
+    this.listLoading = true
+    // 请求获取消息列表
+    this.getMessageList().then(() => this.stopLoading('listLoading')).catch(() => this.stopLoading('listLoading'))
+  },
   methods: {
     ...mapMutations([
       //
@@ -163,11 +168,6 @@ export default {
       if (this.currentMessageType === 'readed') this.removeReaded({ msg_id })
       else this.restoreTrash({ msg_id })
     }
-  },
-  mounted() {
-    this.listLoading = true
-    // 请求获取消息列表
-    this.getMessageList().then(() => this.stopLoading('listLoading')).catch(() => this.stopLoading('listLoading'))
   }
 }
 </script>

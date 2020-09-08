@@ -23,6 +23,14 @@
       <div class="modal-c-item">
         身份证号: {{ formData.identificationNo }}
       </div>
+      <Divider size="small">审核意见</Divider>
+      <Form ref="formValidate" :label-width="100">
+        <FormItem label="审核意见：" prop="desc">
+          <div class="modal-c-input">
+            <Input class="input-item" maxlength="200" show-word-limit type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..." />
+          </div>
+        </FormItem>
+      </Form>
     </div>
     <div
       slot="footer"

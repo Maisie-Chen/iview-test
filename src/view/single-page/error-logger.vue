@@ -72,6 +72,12 @@ export default {
       return this.$store.state.app.errorList
     }
   },
+  activated() {
+    this.setHasReadErrorLoggerStatus()
+  },
+  mounted() {
+    this.setHasReadErrorLoggerStatus()
+  },
   methods: {
     ...mapMutations([
       'setHasReadErrorLoggerStatus'
@@ -81,12 +87,6 @@ export default {
         filename: '错误日志.csv'
       })
     }
-  },
-  activated() {
-    this.setHasReadErrorLoggerStatus()
-  },
-  mounted() {
-    this.setHasReadErrorLoggerStatus()
   }
 }
 </script>
