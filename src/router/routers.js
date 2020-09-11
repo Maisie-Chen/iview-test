@@ -66,7 +66,7 @@ export default [
           icon: 'ios-contact-outline',
           title: 'customer_manage'
         },
-        component: resolve => require(['@/view/serv-page/customer-manage.vue'], resolve)
+        component: resolve => require(['@/view/serv-page/CustomerManage.vue'], resolve)
       }
     ]
   },
@@ -87,7 +87,7 @@ export default [
           icon: 'ios-home-outline',
           title: 'house_manage'
         },
-        component: resolve => require(['@/view/serv-page/house-manage.vue'], resolve)
+        component: resolve => require(['@/view/serv-page/HouseManage.vue'], resolve)
       }
     ]
   },

@@ -26,7 +26,7 @@ const showThisMenuEle = (item, access) => {
   } return true
 }
 /**
- * @param {Array} list 通过路由列表得到菜单列表
+ * @param {Array} list 通过路由列表得到菜单列表 routers.js
  * @returns {Array}
  */
 export const getMenuByRouter = (list, access) => {
@@ -52,29 +52,36 @@ export const getMenuByRouter = (list, access) => {
  * @param {Array} routeMetched 当前路由metched
  * @returns {Array}
  */
-export const getBreadCrumbList = (route, homeRoute) => {
+export const getBreadCrumbList = (route, homeRoute) => { // route--当前路由  homeRoute--state.homeRoute
   const homeItem = { ...homeRoute, icon: homeRoute.meta.icon }
   const routeMetched = route.matched
+  // console.log(routeMetched)
+  // 若当前路由metched中有name为homeName的路由，返回homeItem
   if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
+  // 返回不隐藏在面包屑中的item
   let res = routeMetched.filter(item => {
     return item.meta === undefined || !item.meta.hideInBread
-  }).map(item => {
-    const meta = { ...item.meta }
-    if (meta.title && typeof meta.title === 'function') {
-      meta.__titleIsFunction__ = true
-      meta.title = meta.title(route)
-    }
-    const obj = {
-      icon: (item.meta && item.meta.icon) || '',
-      name: item.name,
-      meta: meta
-    }
-    return obj
   })
+  // 对每个item进行渲染数据的提取 icon name meta
+    .map(item => {
+      const meta = { ...item.meta }
+      if (meta.title && typeof meta.title === 'function') {
+        meta.__titleIsFunction__ = true
+        meta.title = meta.title(route)
+      }
+      const obj = {
+        icon: (item.meta && item.meta.icon) || '',
+        name: item.name,
+        meta: meta
+      }
+      return obj
+    })
   res = res.filter(item => {
     return !item.meta.hideInMenu
   })
-  return [{ ...homeItem, to: homeRoute.path }, ...res]
+  // 模板中会将首页作为根层级，设置to属性（用于BreadcrumbItem元素） 渲染至面包屑
+  // return [{ ...homeItem, to: homeRoute.path }, ...res]
+  return [...res]
 }
 
 export const getRouteTitleHandled = (route) => {
@@ -128,10 +135,10 @@ export const getHomeRoute = (routers, homeName = 'home') => {
   let homeRoute = {}
   while (++i < len) {
     const item = routers[i]
-    if (item.children && item.children.length) {
+    if (item.children && item.children.length) { // 如果有子路由，则递归
       const res = getHomeRoute(item.children, homeName)
-      if (res.name) return res
-    } else if (item.name === homeName) homeRoute = item
+      if (res.name) return res // res不为空对象时，找到homeRoute
+    } else if (item.name === homeName) homeRoute = item // 若当前路由没有其他子路由，则判断是否为homeName路由
   }
   return homeRoute
 }

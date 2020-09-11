@@ -136,6 +136,7 @@ export default {
         },
         type: 'push'
       })
+      // console.log(newRoute)
       this.setBreadCrumb(newRoute)
       this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
       this.$refs.sideMenu.updateOpenName(newRoute.name)
@@ -146,7 +147,7 @@ export default {
      * @description 初始化设置面包屑导航和标签导航
      */
     this.setTagNavList()
-    this.setHomeRoute(routers)
+    this.setHomeRoute(routers) // 设置首页路由
     const {
       name, params, query, meta
     } = this.$route

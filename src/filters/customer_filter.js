@@ -6,7 +6,7 @@ const STATUS_OBJ = {
     status: '待审核'
   },
   not_audit: {
-    status: '未实名'
+    status: '待实名'
   },
   audit_reject: {
     status: '审核拒绝'

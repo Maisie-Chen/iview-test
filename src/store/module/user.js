@@ -83,7 +83,6 @@ export default {
           userName,
           password
         }).then((res) => {
-          // console.log(res)
           const { data } = res
           commit('setToken', data.data.accessToken)
           resolve()
@@ -114,11 +113,13 @@ export default {
         try {
           getUserInfo(state.token).then((res) => {
             const { data } = res
+            if (!data) {
+              reject('Verification failed, please Login again.')
+            }
             commit('setAvatar', data.avatar)
             commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
-            commit('setAccess', data.access)
-            commit('setHasGetInfo', true)
+            // commit('setUserId', data.user_id)
+            // commit('setHasGetInfo', true)
             resolve(data)
           }).catch((err) => {
             reject(err)

@@ -6,6 +6,7 @@
     </template>
     <template v-for="item in children">
       <template v-if="item.children && item.children.length === 1">
+        <!-- 组件递归 -->
         <side-menu-item
           v-if="showChildren(item)"
           :key="`menu-${item.name}`"

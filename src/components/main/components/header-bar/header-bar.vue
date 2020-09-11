@@ -24,7 +24,6 @@ export default {
   computed: {
     breadCrumbList() {
       const res = this.$store.state.app.breadCrumbList
-      res.shift() // breadCrumb上不显示'首页'
       return res
     }
   },

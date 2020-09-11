@@ -1,7 +1,6 @@
 <template>
   <Modal
     :value="show"
-    class-name="vertical-center-modal"
     @on-visible-change="getFaultModalStatusChange"
   >
     <div slot="header" class="modal-header">
@@ -10,37 +9,19 @@
     </div>
     <div class="modal-content">
       <div class="modal-c-item">
-        姓名: {{ formData.houseHolder.holderName }}
+        姓名: {{ formData.name }}
       </div>
       <div class="modal-c-item">
-        手机号:
+        手机号: {{ formData.mobile }}
       </div>
       <div class="modal-c-item">
-        房屋地址: {{ formData.address }}
+        性别: {{ formData.gender }}
       </div>
       <div class="modal-c-item">
-        身份证号: {{ formData.houseHolder.holderIdCardNumber }}
+        年龄: {{ formData.age }}
       </div>
       <div class="modal-c-item">
-        房屋面积: {{ formData.houseLayout.area }}
-      </div>
-      <div class="modal-c-item">
-        房屋朝向: {{ formData.houseLayout.direction | h_direction }}
-      </div>
-      <div class="modal-c-item">
-        楼层: {{ formData.houseLayout.floor }}
-      </div>
-      <div class="modal-c-item">
-        电梯: {{ formData.houseLayout.hasElevator | h_hasElevator }}
-      </div>
-      <div class="modal-c-item">
-        房间: {{ formData.houseLayout.roomCount }}
-      </div>
-      <div class="modal-c-item">
-        厕所: {{ formData.houseLayout.toiletCount }}
-      </div>
-      <div class="modal-c-img">
-        <img class="modal-img" :src="formData.housePropertyCertificateImageUrl" alt="housePropertyCertificateImageUrl">
+        身份证号: {{ formData.identificationNo }}
       </div>
       <Divider size="small">审核意见</Divider>
       <Form ref="formValidate" :label-width="100">
@@ -48,11 +29,9 @@
           <div class="modal-c-input">
             <Input class="input-item" maxlength="200" show-word-limit type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..." />
           </div>
-
         </FormItem>
       </Form>
     </div>
-
     <div
       slot="footer"
       class="modal-footer"
@@ -72,9 +51,8 @@
 </template>
 
 <script>
-import { isUndef, isEmpty } from '@/libs/shared'
-import { getHouseDetail } from '@/api/house'
-import { getImg } from '@/api/authimg'
+import { isUndef } from '@/libs/shared'
+import { getCustomerDetail } from '@/api/customer'
 export default {
   name: 'ModalDialog',
   props: {
@@ -93,14 +71,7 @@ export default {
   },
   data() {
     return {
-      formData: {
-        houseLayout: {},
-        houseHolder: {}
-      },
-      modalStyle: {
-        height: '50rem',
-        overflow: 'auto'
-      }
+      formData: []
     }
   },
   watch: {
@@ -114,34 +85,40 @@ export default {
   methods: {
     updateDetail(id) {
       if (!isUndef(id)) {
-        this.getHouseDetail(id)
+        this.getCustomerDetail(id)
       }
     },
-    getHouseDetail(id) {
-      getHouseDetail(id).then((res) => {
+    getCustomerDetail(id) {
+      getCustomerDetail(id).then((res) => {
         const data = res.data
         this.formData = data.data === null ? {} : data.data
-        this.getAuthImg()
       })
     },
     getFaultModalStatusChange(show) {
       this.$emit('modalStatusChange', show)
-    },
-    async getAuthImg() {
-      this.formData.housePropertyCertificateImageUrl
-      if (isEmpty(this.formData.housePropertyCertificateImageUrl)) {
-        this.loading = false
-        return
-      }
-      await getImg(this.formData.housePropertyCertificateImageUrl).then((blod) => {
-        const url = URL.createObjectURL(blod)
-        console.log(url)
-        this.formData.housePropertyCertificateImageUrl = url
-      })
     }
   }
 }
 </script>
 <style lang='less' scoped>
-  @import './modalDialog.less';
+  .modal-header{
+    text-align: center;
+    font-size: 1rem;
+}
+
+.modal-content{
+    .modal-c-item{
+        margin-left: 5rem;
+        height: 3rem;
+        line-height: 3rem;
+    }
+}
+
+.modal-footer{
+    text-align: center;
+    Button{
+        margin: 0 2rem;
+        width: 8rem;
+    }
+}
 </style>

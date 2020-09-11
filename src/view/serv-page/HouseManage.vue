@@ -5,39 +5,49 @@
       stripe
       :columns="columns"
       :data="rowData"
-    >
+    />
+    <!--
       <template slot="status" slot-scope="{ row }">
         <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status | h_status }}</Tag>
         <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status | h_status }}</Tag>
         <Tag v-if="row.status=='audit_reject'" color="red">{{ row.status | h_status }}</Tag>
       </template>
+
       <template slot="rentStatus" slot-scope="{ row }">
         <Tag v-if="row.rentStatus=='rented'" color="green">{{ row.rentStatus | h_rentStatus }}</Tag>
         <Tag v-if="row.rentStatus=='rent_pending'" color="red">{{ row.rentStatus | h_rentStatus }}</Tag>
-      </template>rentStatus
+      </template>
+
       <template slot="operation" slot-scope="{ row }">
         <span v-if="row.status=='audit_pass' || row.status=='audit_reject'" @click="modalShow(row)">详情</span>
         <span v-if="row.status=='audit_pending'" @click="modalShow(row)">审核</span>
       </template>
-    </Table>
+      -->
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <Page :total="listQuery.total" :current.sync="listQuery.pageNum" @on-change="changePage" />
       </div>
     </div>
     <div class="xxx">
-      <modal-dialog :id="selectRowId" :type="modalType" :show="isOperationShow" @modalStatusChange="modalStatusChange" />
+      <house-modal :id="selectRowId" :type="modalType" :show="isOperationShow" @modalStatusChange="modalStatusChange" />
     </div>
 
   </div>
 </template>
 <script>
-import modalDialog from './components/modals_for_house/modalDialog.vue'
+import HouseModal from './components/HouseModal.vue'
 import { getHouseList } from '@/api/house'
 import { statusObj, rentStatusObj } from '@/config/house_config'
+import Dict from '@/filters/dict'
+// import paramsVue from '../argu-page/params.vue'
+// import paramsVue from '../argu-page/params.vue'
 export default {
   components: {
-    modalDialog
+    HouseModal
+  },
+  filters: {
+    cnStatus: Dict.h_status,
+    cnRentStatus: Dict.h_rentStatus
   },
   data() {
     return {
@@ -67,20 +77,56 @@ export default {
         {
           title: '审核状态',
           key: 'status',
-          slot: 'status'
-          // render: (h, params) => h('span', this.changeStatus(params.row, params.row.status))
+          render: (h, params) => {
+            const status = params.row.status
+            let color = 'default'
+            if (status === 'audit_pass') {
+              color = 'green'
+            } else if (status === 'audit_pending') {
+              color = 'blue'
+            } else if (status === 'audit_reject') {
+              color = 'red'
+            }
+            return (
+              <Tag color={color}>
+                {this.$options.filters.cnStatus(status)}
+              </Tag>
+            )
+          }
         },
         {
           title: '出租状态',
           key: 'rentStatus',
-          slot: 'rentStatus'
-          // render: (h, params) => h('span', this.changeRentStatus(params.row, params.row.rentStatus))
+          render: (h, params) => {
+            const rentStatus = params.row.rentStatus
+            let color = 'default'
+            if (rentStatus === 'rented') {
+              color = 'green'
+            } else if (rentStatus === 'rent_pending') {
+              color = 'red'
+            }
+            return (
+              <Tag color={color}>
+                {this.$options.filters.cnRentStatus(rentStatus)}
+              </Tag>
+            )
+          }
         },
         {
           title: '操作',
           key: 'operation',
-          slot: 'operation',
-          className: 'operation_col'
+          className: 'operation_col',
+          render: (h, params) => {
+            let text = '详情'
+            if (params.row.status === 'audit_pending') {
+              text = '审核'
+            }
+            return (
+              <span onClick={() => this.modalShow(params.row)}>
+                {text}
+              </span>
+            )
+          }
         }
       ]
     }
@@ -92,7 +138,7 @@ export default {
     houseList() {
       getHouseList(this.listQuery).then(res => {
         const { data } = res.data
-        this.listQuery.total = data.total
+        this.listQuery.total = 0 || data.total
         this.rowData = data.list
       })
     },
@@ -121,5 +167,42 @@ export default {
 }
 </script>
 <style lang="less">
-  @import './house-manage.less';
+.ivu-table {
+    td.operation_col{
+    color: blue;
+    &:hover{
+        cursor: pointer;
+    }
+}
+    .audit_pass_cell span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid green;
+        color:green;
+    }
+    .audit_pending_cell span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid blue;
+        color: blue;
+    }
+
+    .rented_cell span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid blue;
+        color: blue;
+    }
+    .rent_pending span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid red;
+        color: red;
+    }
+}
+
 </style>

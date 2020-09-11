@@ -6,32 +6,43 @@
       :columns="columns"
       :data="rowData"
     >
+      <!--
       <template slot="status" slot-scope="{ row }">
         <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status | c_status }}</Tag>
         <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status | c_status }}</Tag>
         <Tag v-if="row.status=='not_audit'" color="default">{{ row.status | c_status }}</Tag>
         <Tag v-if="row.status=='audit_reject'" color="red">{{ row.status | c_status }}</Tag>
       </template>
+      -->
+
+      <!--
       <template slot="operation" slot-scope="{ row }">
         <span v-if="row.status=='audit_pass' || row.status=='audit_reject'" @click="modalShow(row)">详情</span>
         <span v-if="row.status=='audit_pending'" @click="modalShow(row)">审核</span>
       </template>
+      -->
     </Table>
+    <!--页码-->
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <Page :total="listQuery.total" :current.sync="listQuery.pageNum" @on-change="changePage" />
       </div>
     </div>
-    <modal-dialog :id="selectRowId" :type="modalType" :show="isOperationShow" @modalStatusChange="modalStatusChange" />
+    <!--弹框-->
+    <customer-modal :id="selectRowId" :type="modalType" :show="isOperationShow" @modalStatusChange="modalStatusChange" />
 
   </div>
 </template>
 <script>
-import modalDialog from './components/modals_for_customer/modalDialog.vue'
+import CustomerModal from './components/CustomerModal.vue'
 import { getCustomerList } from '@/api/customer'
+import Dict from '@/filters/dict'
 export default {
   components: {
-    modalDialog
+    CustomerModal
+  },
+  filters: {
+    cnStatus: Dict.c_status
   },
   data() {
     return {
@@ -57,7 +68,22 @@ export default {
         {
           title: '当前状态',
           key: 'status',
-          slot: 'status'
+          render: (h, params) => {
+            const status = params.row.status
+            let color = 'default'
+            if (status === 'audit_pass') {
+              color = 'green'
+            } else if (status === 'audit_pending') {
+              color = 'blue'
+            } else if (status === 'audit_reject') {
+              color = 'red'
+            }
+            return (
+              <Tag color={color}>
+                {this.$options.filters.cnStatus(params.row.status)}
+              </Tag>
+            )
+          }
         },
         {
           title: '角色',
@@ -75,8 +101,20 @@ export default {
         {
           title: '操作',
           key: 'operation',
-          slot: 'operation',
-          className: 'operation_col'
+          className: 'operation_col',
+          render: (h, params) => {
+            const status = params.row.status
+            if (status === 'not_audit') {
+              return
+            }
+            let text = '详情'
+            if (status === 'audit_pending') {
+              text = '审核'
+            }
+            return (
+              <span onClick={() => this.modalShow(params.row)}>{text}</span>
+            )
+          }
         }
       ]
     }
@@ -88,7 +126,7 @@ export default {
     customerList() {
       getCustomerList(this.listQuery).then(res => {
         const { data } = res.data
-        this.listQuery.total = data.total
+        this.listQuery.total = 0 || data.total
         this.rowData = data.list
       })
     },
@@ -108,5 +146,36 @@ export default {
 }
 </script>
 <style lang="less" scope>
-  @import './customer-manage.less';
+  .ivu-table {
+    td.operation_col{
+        color: blue;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .audit_pass_cell span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid green;
+        color:green;
+
+    }
+    .not_audit_cell span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid gray;
+        color: gray;
+
+    }
+    .audit_pending_cell span{
+        display: inline-block;
+        border-radius: .3rem;
+        padding: .05rem .15rem;
+        border: 1px solid blue;
+        color: blue;
+    }
+
+}
 </style>

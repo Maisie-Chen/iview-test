@@ -38,7 +38,7 @@ export default {
     errorCount: state => state.errorList.length
   },
   mutations: {
-    setBreadCrumb(state, route) {
+    setBreadCrumb(state, route) { // route为当前路由
       state.breadCrumbList = getBreadCrumbList(route, state.homeRoute)
     },
     setHomeRoute(state, routes) {
