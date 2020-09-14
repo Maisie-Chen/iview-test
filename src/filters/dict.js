@@ -1,5 +1,5 @@
-import customer from './customer_filter'
-import house from './house_filter'
+import customer from '.CustomerFilter'
+import house from './HouseFilter'
 
 const c_status = val => {
   return customer.STATUS_OBJ[val].status

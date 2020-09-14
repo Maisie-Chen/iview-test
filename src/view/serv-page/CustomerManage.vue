@@ -36,7 +36,7 @@
 <script>
 import CustomerModal from './components/CustomerModal.vue'
 import { getCustomerList } from '@/api/customer'
-import Dict from '@/filters/dict'
+import Dict from '@/filters/Dict'
 export default {
   components: {
     CustomerModal

@@ -38,7 +38,7 @@
 import HouseModal from './components/HouseModal.vue'
 import { getHouseList } from '@/api/house'
 import { statusObj, rentStatusObj } from '@/config/house_config'
-import Dict from '@/filters/dict'
+import Dict from '@/filters/Dict'
 // import paramsVue from '../argu-page/params.vue'
 // import paramsVue from '../argu-page/params.vue'
 export default {

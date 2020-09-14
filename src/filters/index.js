@@ -1,4 +1,4 @@
-import Dict from './dict'
+import Dict from './Dict'
 
 const filters = { ...Dict }
 
