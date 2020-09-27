@@ -5,23 +5,7 @@
       stripe
       :columns="columns"
       :data="rowData"
-    >
-      <!--
-      <template slot="status" slot-scope="{ row }">
-        <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status | c_status }}</Tag>
-        <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status | c_status }}</Tag>
-        <Tag v-if="row.status=='not_audit'" color="default">{{ row.status | c_status }}</Tag>
-        <Tag v-if="row.status=='audit_reject'" color="red">{{ row.status | c_status }}</Tag>
-      </template>
-      -->
-
-      <!--
-      <template slot="operation" slot-scope="{ row }">
-        <span v-if="row.status=='audit_pass' || row.status=='audit_reject'" @click="modalShow(row)">详情</span>
-        <span v-if="row.status=='audit_pending'" @click="modalShow(row)">审核</span>
-      </template>
-      -->
-    </Table>
+    />
     <!--页码-->
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
@@ -34,9 +18,10 @@
   </div>
 </template>
 <script>
-import CustomerModal from './components/CustomerModal.vue'
+import CustomerModal from './components/customer-modal.vue'
 import { getCustomerList } from '@/api/customer'
-import Dict from '@/filters/Dict'
+import { customerStatus } from '@/libs/field.js'
+import Dict from '@/filters/dict'
 export default {
   components: {
     CustomerModal
@@ -70,17 +55,11 @@ export default {
           key: 'status',
           render: (h, params) => {
             const status = params.row.status
-            let color = 'default'
-            if (status === 'audit_pass') {
-              color = 'green'
-            } else if (status === 'audit_pending') {
-              color = 'blue'
-            } else if (status === 'audit_reject') {
-              color = 'red'
-            }
+            const content = customerStatus[status].status
+            const color = customerStatus[status].color || 'default'
             return (
               <Tag color={color}>
-                {this.$options.filters.cnStatus(params.row.status)}
+                {content}
               </Tag>
             )
           }
@@ -104,15 +83,12 @@ export default {
           className: 'operation_col',
           render: (h, params) => {
             const status = params.row.status
-            if (status === 'not_audit') {
+            const opText = customerStatus[status].operation || ''
+            if (!opText.length) {
               return
             }
-            let text = '详情'
-            if (status === 'audit_pending') {
-              text = '审核'
-            }
             return (
-              <span onClick={() => this.modalShow(params.row)}>{text}</span>
+              <span onClick={() => this.modalShow(params.row)}>{opText}</span>
             )
           }
         }
@@ -126,7 +102,7 @@ export default {
     customerList() {
       getCustomerList(this.listQuery).then(res => {
         const { data } = res.data
-        this.listQuery.total = 0 || data.total
+        this.listQuery.total = data.total || 0
         this.rowData = data.list
       })
     },

@@ -26,32 +26,33 @@ export default [
     },
     component: resolve => require(['@/view/login/login.vue'], resolve)
   },
-  {
-    path: '/',
-    name: '_home',
-    redirect: '/home',
-    component: Main,
-    meta: {
-      hideInMenu: true,
-      notCache: true
-    },
-    children: [
-      {
-        path: '/home',
-        name: 'home',
-        meta: {
-          hideInMenu: true,
-          title: '首页',
-          notCache: true,
-          icon: 'md-home'
-        },
-        component: resolve => require(['@/view/single-page/home'], resolve)
-      }
-    ]
-  },
+  // {
+  //   path: '/',
+  //   name: '_home',
+  //   redirect: '/home',
+  //   component: Main,
+  //   meta: {
+  //     hideInMenu: true,
+  //     notCache: true
+  //   },
+  //   children: [
+  //     {
+  //       path: '/home',
+  //       name: 'home',
+  //       meta: {
+  //         hideInMenu: true,
+  //         title: '首页',
+  //         notCache: true,
+  //         icon: 'md-home'
+  //       },
+  //       component: resolve => require(['@/view/single-page/home'], resolve)
+  //     }
+  //   ]
+  // },
   {
     path: '/',
     name: '_customer',
+    redirect: '/customer_manage',
     meta: {
       title: 'customer',
       hideInBread: true
@@ -60,13 +61,13 @@ export default [
     // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
     children: [
       {
-        path: 'customer_manage',
+        path: '/customer_manage',
         name: 'customer_manage',
         meta: {
           icon: 'ios-contact-outline',
           title: 'customer_manage'
         },
-        component: resolve => require(['@/view/serv-page/CustomerManage.vue'], resolve)
+        component: resolve => require(['@/view/serv-page/customer-manage.vue'], resolve)
       }
     ]
   },
@@ -81,44 +82,13 @@ export default [
     // component: resolve => require('@/view/maisiePage/maisiePage.vue'),
     children: [
       {
-        path: 'house_manage',
+        path: '/house_manage',
         name: 'house_manage',
         meta: {
           icon: 'ios-home-outline',
           title: 'house_manage'
         },
-        component: resolve => require(['@/view/serv-page/HouseManage.vue'], resolve)
-      }
-    ]
-  },
-  {
-    path: '/argu',
-    name: 'argu',
-    meta: {
-      hideInMenu: true
-    },
-    component: Main,
-    children: [
-      {
-        path: 'params/:id',
-        name: 'params',
-        meta: {
-          icon: 'md-flower',
-          title: route => `{{ params }}-${route.params.id}`,
-          notCache: true,
-          beforeCloseName: 'before_close_normal'
-        },
-        component: resolve => require(['@/view/argu-page/params.vue'], resolve)
-      },
-      {
-        path: 'query',
-        name: 'query',
-        meta: {
-          icon: 'md-flower',
-          title: route => `{{ query }}-${route.query.id}`,
-          notCache: true
-        },
-        component: resolve => require(['@/view/argu-page/query.vue'], resolve)
+        component: resolve => require(['@/view/serv-page/house-manage.vue'], resolve)
       }
     ]
   },

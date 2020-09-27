@@ -6,23 +6,6 @@
       :columns="columns"
       :data="rowData"
     />
-    <!--
-      <template slot="status" slot-scope="{ row }">
-        <Tag v-if="row.status=='audit_pass'" color="green">{{ row.status | h_status }}</Tag>
-        <Tag v-if="row.status=='audit_pending'" color="blue">{{ row.status | h_status }}</Tag>
-        <Tag v-if="row.status=='audit_reject'" color="red">{{ row.status | h_status }}</Tag>
-      </template>
-
-      <template slot="rentStatus" slot-scope="{ row }">
-        <Tag v-if="row.rentStatus=='rented'" color="green">{{ row.rentStatus | h_rentStatus }}</Tag>
-        <Tag v-if="row.rentStatus=='rent_pending'" color="red">{{ row.rentStatus | h_rentStatus }}</Tag>
-      </template>
-
-      <template slot="operation" slot-scope="{ row }">
-        <span v-if="row.status=='audit_pass' || row.status=='audit_reject'" @click="modalShow(row)">详情</span>
-        <span v-if="row.status=='audit_pending'" @click="modalShow(row)">审核</span>
-      </template>
-      -->
     <div style="margin: 10px;overflow: hidden">
       <div style="float: right;">
         <Page :total="listQuery.total" :current.sync="listQuery.pageNum" @on-change="changePage" />
@@ -35,19 +18,12 @@
   </div>
 </template>
 <script>
-import HouseModal from './components/HouseModal.vue'
+import HouseModal from './components/house-modal.vue'
 import { getHouseList } from '@/api/house'
-import { statusObj, rentStatusObj } from '@/config/house_config'
-import Dict from '@/filters/Dict'
-// import paramsVue from '../argu-page/params.vue'
-// import paramsVue from '../argu-page/params.vue'
+import { houseStatus, houseRentStatus } from '@/libs/field.js'
 export default {
   components: {
     HouseModal
-  },
-  filters: {
-    cnStatus: Dict.h_status,
-    cnRentStatus: Dict.h_rentStatus
   },
   data() {
     return {
@@ -79,17 +55,11 @@ export default {
           key: 'status',
           render: (h, params) => {
             const status = params.row.status
-            let color = 'default'
-            if (status === 'audit_pass') {
-              color = 'green'
-            } else if (status === 'audit_pending') {
-              color = 'blue'
-            } else if (status === 'audit_reject') {
-              color = 'red'
-            }
+            const content = houseStatus[status].status
+            const color = houseStatus[status].color || 'default'
             return (
               <Tag color={color}>
-                {this.$options.filters.cnStatus(status)}
+                {content}
               </Tag>
             )
           }
@@ -99,15 +69,11 @@ export default {
           key: 'rentStatus',
           render: (h, params) => {
             const rentStatus = params.row.rentStatus
-            let color = 'default'
-            if (rentStatus === 'rented') {
-              color = 'green'
-            } else if (rentStatus === 'rent_pending') {
-              color = 'red'
-            }
+            const content = houseRentStatus[rentStatus].rentStatus
+            const color = houseRentStatus[rentStatus].color
             return (
               <Tag color={color}>
-                {this.$options.filters.cnRentStatus(rentStatus)}
+                {content}
               </Tag>
             )
           }
@@ -117,13 +83,11 @@ export default {
           key: 'operation',
           className: 'operation_col',
           render: (h, params) => {
-            let text = '详情'
-            if (params.row.status === 'audit_pending') {
-              text = '审核'
-            }
+            const status = params.row.status
+            const opText = houseStatus[status].operation
             return (
               <span onClick={() => this.modalShow(params.row)}>
-                {text}
+                {opText}
               </span>
             )
           }
@@ -138,18 +102,9 @@ export default {
     houseList() {
       getHouseList(this.listQuery).then(res => {
         const { data } = res.data
-        this.listQuery.total = 0 || data.total
+        this.listQuery.total = data.total || 0
         this.rowData = data.list
       })
-    },
-    changeStatus(row, key) {
-      row.cellClassName = { ...row.cellClassName, ...statusObj[key].cellClassName }
-      row.operation = statusObj[key].operation
-      return statusObj[key].status
-    },
-    changeRentStatus(row, key) {
-      row.cellClassName = { ...row.cellClassName, ...rentStatusObj[key].cellClassName }
-      return rentStatusObj[key].rentStatus
     },
     modalShow(row) {
       this.isOperationShow = true

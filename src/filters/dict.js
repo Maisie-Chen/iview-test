@@ -1,4 +1,5 @@
-import customer from '.CustomerFilter'
+/*
+import customer from './CustomerFilter'
 import house from './HouseFilter'
 
 const c_status = val => {
@@ -28,3 +29,4 @@ export default {
   h_hasElevator,
   h_direction
 }
+*/

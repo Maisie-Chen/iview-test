@@ -5,8 +5,8 @@
     @on-visible-change="getFaultModalStatusChange"
   >
     <div slot="header" class="modal-header">
-      <span v-if="type==='audit_pass'">详情</span>
       <span v-if="type==='audit_pending'">审核</span>
+      <span v-else>详情</span>
     </div>
     <div class="modal-content">
       <div class="modal-c-item">
@@ -25,13 +25,13 @@
         房屋面积: {{ formData.houseLayout.area }}
       </div>
       <div class="modal-c-item">
-        房屋朝向: {{ formData.houseLayout.direction | h_direction }}
+        房屋朝向: {{ formData.houseLayout.direction | directionInCN }}
       </div>
       <div class="modal-c-item">
         楼层: {{ formData.houseLayout.floor }}
       </div>
       <div class="modal-c-item">
-        电梯: {{ formData.houseLayout.hasElevator | h_hasElevator }}
+        电梯: {{ formData.houseLayout.hasElevator | hasElevatorInCN }}
       </div>
       <div class="modal-c-item">
         房间: {{ formData.houseLayout.roomCount }}
@@ -75,8 +75,17 @@
 import { isUndef, isEmpty } from '@/libs/shared'
 import { getHouseDetail } from '@/api/house'
 import { getImg } from '@/api/authimg'
+import { houseDetail } from '@/libs/field'
 export default {
   name: 'ModalDialog',
+  filters: {
+    hasElevatorInCN(val) {
+      return houseDetail.elevator[val]
+    },
+    directionInCN(val) {
+      return houseDetail.direction[val]
+    }
+  },
   props: {
     id: {
       type: [String, Number],
