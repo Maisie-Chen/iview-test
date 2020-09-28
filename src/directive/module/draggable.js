@@ -1,4 +1,4 @@
-import { on } from '@/libs/tools'
+import { on } from '@/utils/tools'
 
 export default {
   inserted: (el, binding, vnode) => {

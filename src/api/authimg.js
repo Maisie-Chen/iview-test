@@ -1,4 +1,4 @@
-import { getToken } from '@/libs/util'
+import { getToken } from '@/utils/util'
 
 const baseURL = 'http://47.112.238.28:9700'
 

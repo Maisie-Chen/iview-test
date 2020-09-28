@@ -50,7 +50,7 @@
   </Dropdown>
 </template>
 <script>
-import { findNodeUpperByClasses } from '@/libs/util'
+import { findNodeUpperByClasses } from '@/utils/util'
 import mixin from './mixin'
 import itemMixin from './item-mixin'
 

@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { showTitle, routeEqual } from '@/libs/util'
+import { showTitle, routeEqual } from '@/utils/util'
 import beforeClose from '@/router/before-close'
 
 export default {

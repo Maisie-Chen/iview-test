@@ -10,7 +10,7 @@ import {
   getRouteTitleHandled,
   localSave,
   localRead
-} from '@/libs/util'
+} from '@/utils/util'
 import { saveErrorLogger } from '@/api/data'
 import router from '@/router'
 import routers from '@/router/routers'

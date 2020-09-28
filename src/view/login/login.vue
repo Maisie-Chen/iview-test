@@ -29,7 +29,7 @@ export default {
       this.handleLogin({ userName, password }).then(() => {
         this.getUserInfo().then(() => {
           this.$router.push({
-            name: this.$config.screenPage
+            name: this.$config.homeName
           })
         })
       })

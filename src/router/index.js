@@ -4,7 +4,7 @@ import store from '@/store'
 import iView from 'view-design'
 import {
   setToken, getToken, canTurnTo, setTitle
-} from '@/libs/util'
+} from '@/utils/util'
 import config from '@/config'
 import routes from './routers'
 

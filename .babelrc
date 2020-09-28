@@ -1,9 +1,12 @@
 {
-  "presets": [
+  "presets":[
     [
       "@vue/app", 
       {"useBuiltIns": "entry"},
       "@vue/babel-preset-jsx"
-    ]
+
+    ],
+    "@babel/react",
+    "@babel/env"
   ]
 }

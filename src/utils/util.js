@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 // cookie保存的天数
 import config from '@/config'
-import { forEach, hasOneOf, objEqual } from '@/libs/tools'
+import { forEach, hasOneOf, objEqual } from '@/utils/tools'
 
 const { title, cookieExpires, useI18n } = config
 

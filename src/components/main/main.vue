@@ -74,7 +74,7 @@
 </template>
 <script>
 import { mapMutations, mapActions } from 'vuex'
-import { getNewTagList } from '@/libs/util'
+import { getNewTagList } from '@/utils/util'
 import routers from '@/router/routers'
 import minLogo from '@/assets/images/small.png'
 import maxLogo from '@/assets/images/logo.png'

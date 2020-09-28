@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import { showTitle } from '@/libs/util'
+import { showTitle } from '@/utils/util'
 import './custom-bread-crumb.less'
 export default {
   name: 'CustomBreadCrumb',

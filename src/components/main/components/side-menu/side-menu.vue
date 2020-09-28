@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-import { getUnion } from '@/libs/tools'
+import { getUnion } from '@/utils/tools'
 import SideMenuItem from './side-menu-item.vue'
 import CollapsedMenu from './collapsed-menu.vue'
 import mixin from './mixin'

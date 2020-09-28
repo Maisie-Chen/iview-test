@@ -12,8 +12,8 @@
   </div>
 </template>
 <script>
-import { scrollTop } from '@/libs/util'
-import { on, off } from '@/libs/tools'
+import { scrollTop } from '@/utils/util'
+import { on, off } from '@/utils/tools'
 
 const prefixCls = 'ivu-back-top'
 
